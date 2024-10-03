@@ -289,7 +289,7 @@ const Produit = () => {
           <div>
             <p className="italic text-[14px] ">
               {produit?.types.length > 0
-                ? "*Prix justera en fonction du type choisi"
+                ? "*le prix s'ajustera en fonction du type choisi"
                 : "Prix de l'article"}
             </p>
 

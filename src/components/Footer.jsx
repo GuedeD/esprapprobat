@@ -69,7 +69,10 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link>
+              <Link
+                to={"https://www.linkedin.com/in/approbat-approbat-8212b2331/"}
+                target="_blank"
+              >
                 <CiLinkedin className="hover:text-orange3 transition-all duration-500" />
               </Link>
             </li>

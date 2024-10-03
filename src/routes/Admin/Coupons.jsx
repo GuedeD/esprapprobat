@@ -31,6 +31,7 @@ const Coupons = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (
       compareAsc(dateFin, dateDebut) === -1 ||
       compareAsc(dateFin, dateDebut) === 0
@@ -41,6 +42,8 @@ const Coupons = () => {
       toast.error("Les dates choisies ne sont pas correctes");
     } else if (!nom || !dateDebut || !dateFin || !reduction) {
       toast.error("Certains champs sont vides ");
+    } else if (Number(reduction) < 1 || Number(reduction) > 100) {
+      toast.error("la réduction doit être comprise entre 1 et 100%");
     } else {
       const couponRef = collection(db, "coupons");
 

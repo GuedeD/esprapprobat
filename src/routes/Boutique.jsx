@@ -11,9 +11,13 @@ import Aloading from "../assets/Images/animation/ALoading.json";
 import Nothing from "../assets/Images/animation/NOFOUND1.json";
 import { useQuery } from "@tanstack/react-query";
 import { RiMenuFold3Fill } from "react-icons/ri";
+import { useLocation } from "react-router-dom";
 
 const Boutique = () => {
-  const [categorieSelectionner, setCategorieSelectionner] = useState("");
+  const location = useLocation();
+  const [categorieSelectionner, setCategorieSelectionner] = useState(
+    location?.state?.cat ? location.state.cat : ""
+  );
   const [priceRange, setPriceRange] = useState([100, 1000000]);
 
   async function fetchProducts(min, max) {
@@ -117,8 +121,12 @@ const Boutique = () => {
             <p className="text-[14px]">{produits?.length} résultats</p>
           </div>
           <div className="flex  p-4  items-center border rounded-md justify-center flex-col  ">
-            <p className="text-bleu4  font-medium text-[14px] md:text-[18px]">
-              Aucun produit trouvé pour cette catégorie !
+            <p className="text-bleu4   text-[14px] md:text-[18px] flex flex-col">
+              <span>Aucun produit trouvé pour cette catégorie </span>
+              <span className="text-center font-medium">
+                {" "}
+                {categorieSelectionner}{" "}
+              </span>
             </p>
             <Lottie
               animationData={Nothing}

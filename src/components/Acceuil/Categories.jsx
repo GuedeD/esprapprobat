@@ -16,7 +16,12 @@ const Categories = ({ allImages }) => {
               w-full object-cover "
             alt=""
           />
-          <div className="category " onClick={() => navigate("/boutique")}>
+          <div
+            className="category "
+            onClick={() =>
+              navigate("/boutique", { state: { cat: "granulat" } })
+            }
+          >
             <p>Granulat</p>
             <CiCircleChevRight className="text-[28px]  " />
           </div>
@@ -28,7 +33,10 @@ const Categories = ({ allImages }) => {
             className="rounded-md h-[200px] md:h-[300px] w-full  object-cover"
             alt=""
           />
-          <div className="category " onClick={() => navigate("/boutique")}>
+          <div
+            className="category "
+            onClick={() => navigate("/boutique", { state: { cat: "acier" } })}
+          >
             <p>Acier</p>
             <CiCircleChevRight className="text-[28px]  " />
           </div>
@@ -40,7 +48,12 @@ const Categories = ({ allImages }) => {
             className="rounded-md h-[200px] w-full md:h-[300px] lg:h-[620px] object-cover"
             alt=""
           />
-          <div className="category " onClick={() => navigate("/boutique")}>
+          <div
+            className="category "
+            onClick={() =>
+              navigate("/boutique", { state: { cat: "bois coffrage" } })
+            }
+          >
             <p>Boiserie</p>
             <CiCircleChevRight className="text-[28px]  " />
           </div>
@@ -52,7 +65,12 @@ const Categories = ({ allImages }) => {
             className="rounded-md h-[200px] md:h-[300px]  w-full object-cover"
             alt=""
           />
-          <div className="category " onClick={() => navigate("/boutique")}>
+          <div
+            className="category "
+            onClick={() =>
+              navigate("/boutique", { state: { cat: "agglos industriel" } })
+            }
+          >
             <p>Agglos </p>
             <CiCircleChevRight className="text-[28px]  " />
           </div>

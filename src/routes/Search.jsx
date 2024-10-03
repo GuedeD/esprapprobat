@@ -26,7 +26,7 @@ const Search = () => {
   }
   return (
     <div
-      className="max-w-[85%] mx-auto border rounded-md
+      className=" max-w-[95%] md:max-w-[85%] mx-auto border rounded-md
     mt-[120px] mb-[100px] relative "
     >
       <div className="flex justify-center items-center gap-2   rounded-t-md text-[22px] bg-slate-500 text-white p-2 py-4 font-medium">
@@ -39,7 +39,7 @@ const Search = () => {
           <Lottie animationData={Nothing} loop={true} className="w-[400px]" />
         </div>
       )}
-      <div className="grid grid-cols-4 gap-[20px] p-5  mb-[60px]  ">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[20px] p-3  mb-[60px]  ">
         {currentItems.length > 0 &&
           currentItems.map((produit) => (
             <div
@@ -47,7 +47,7 @@ const Search = () => {
               key={produit.id}
               className="border relative shadow-md rounded-md p-2  group will-change-transfor  cursor-pointer "
             >
-              <div className=" rounded-md  relative overflow-hidden h-[170px] w-full">
+              <div className=" rounded-md  relative overflow-hidden h-[120px] md:h-[170px] w-full">
                 <img
                   className="transition-all duration-500 object-cover h-full w-full group-hover:scale-105 rounded-md  "
                   src={produit.image}
@@ -62,9 +62,7 @@ const Search = () => {
                   {produit.prixReference} Fcfa
                 </p>
                 <div className="flex  gap-[5px] items-center  ">
-                  <p className="text-[14px] text-nowrap">
-                    Quantité minimale :{" "}
-                  </p>
+                  <p className="text-[14px] text-nowrap">Quantité min : </p>
                   <p className="   ">{produit.quantiteMinimale}</p>{" "}
                 </div>
               </div>

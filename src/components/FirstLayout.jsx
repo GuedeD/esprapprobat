@@ -1,10 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import BackToTop from "./Acceuil/BackToTop";
 import ScrollToTop from "./ScrollToTop";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Menu from "./Menu";
 import { NavLink } from "react-router-dom";
 
@@ -19,6 +19,8 @@ const FirstLayout = () => {
   const { userInfo } = useSelector((state) => state.projet);
   const [openMenu, setOpenMenu] = useState(false);
 
+  const { pathname } = useLocation();
+
   const openDrawer = () => {
     setOpenMenu(true);
   };
@@ -27,6 +29,10 @@ const FirstLayout = () => {
   const closeDrawer = () => {
     setOpenMenu(false);
   };
+
+  useEffect(() => {
+    closeDrawer();
+  }, [pathname]);
 
   const getDrawerWidth = () => {
     if (window.innerWidth < 768) {
