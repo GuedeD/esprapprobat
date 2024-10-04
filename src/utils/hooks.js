@@ -11,8 +11,6 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
 
 export async function recupererProduits(minPrice = 0, maxPrice = 1000000) {
   console.log(minPrice, maxPrice);
@@ -232,17 +230,22 @@ export async function recuperFactures() {
 
 export async function recuperUtilisateurs() {
   try {
-    const q = query(collection(db, "users"), orderBy("createdAt", "desc"));
-
+    const q = query(
+      collection(db, "users"),
+      where("emailVerified", "==", true),
+      orderBy("createdAt", "desc")
+    );
+    console.log("ici");
     const querySnapshot = await getDocs(q);
     const filteredData = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-
+    console.log(filteredData);
     return filteredData;
   } catch (error) {
     toast.error(error.code);
+    console.log(error);
   }
 }
 

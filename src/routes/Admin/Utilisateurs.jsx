@@ -66,7 +66,7 @@ const Utilisateurs = () => {
     );
   }
   return (
-    <div className="h-full  relative">
+    <div className="h-full  ">
       <h3 className="text-bleu4 font-semibold text-[20px] md:text-[26px] p-3">
         Les utilisateurs
       </h3>
@@ -86,9 +86,6 @@ const Utilisateurs = () => {
             <table className="border-collapse border border-slate-500  w-full mt-2">
               <thead>
                 <tr className="bg-bleu4 text-white text-center">
-                  <th className="border border-slate-600 text-[12px] md:text-[16px] hidden md:table-cell">
-                    N°
-                  </th>
                   <th className=" hidden md:table-cell border border-slate-600 text-[12px] md:text-[16px]">
                     Nom complet
                   </th>
@@ -109,9 +106,6 @@ const Utilisateurs = () => {
               {currentItems?.map((el, i) => (
                 <tbody key={i}>
                   <tr className="text-center">
-                    <td className="border border-slate-600 text-[12px] md:text-[16px] hidden md:table-cell">
-                      {i + 1}
-                    </td>
                     <td className="border border-slate-600 hidden md:table-cell text-[12px] md:text-[16px]">
                       {el.nomComplet}
                     </td>
@@ -161,7 +155,7 @@ const Utilisateurs = () => {
               ))}
             </table>
 
-            <div className="absolute w-full bottom-2 left-0">
+            <div className=" w-full ">
               <hr className=" my-3 " />
               <div className="w-full flex justify-center my-1   ">
                 <Pagination

@@ -70,7 +70,7 @@ const CommandesLivrees = () => {
         <CommandesCardLI allCommandes={allCommandes} />
       ) : (
         <div className="h-full flex flex-col justify-center  items-center -mt-5">
-          <p className="uppercase font-medium text-[20px] font-sans2 ">
+          <p className="uppercase p-2 text-center font-medium text-sm lg:text-[20px] font-sans2 ">
             Aucune commande livré pour le moment.
           </p>
 

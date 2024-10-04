@@ -103,7 +103,7 @@ const VoirCommandes = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(8);
 
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -121,7 +121,7 @@ const VoirCommandes = () => {
   }
 
   return (
-    <div className="h-full relative">
+    <div className="h-ful  ">
       <h3 className="text-bleu4 font-semibold text-[20px] md:text-[26px] p-3">
         Voir les commandes
       </h3>
@@ -131,8 +131,8 @@ const VoirCommandes = () => {
           <Lottie animationData={Aloading} loop={true} className="w-[200px]" />
         </div>
       ) : currentItems?.length > 0 ? (
-        <div className="p-2 md:p-5 ">
-          <table className=" border-collapse border border-slate-500  w-full mt-2">
+        <div className="p-2 md:p-5  ">
+          <table className=" border-collapse border border-slate-500  w-full mt-2 ">
             <thead className="bg-bleu4 text-white  ">
               <tr className="">
                 <th className="py-2 border border-slate-600 hidden md:table-cell text-[12px] md:text-[16px]">
@@ -188,7 +188,7 @@ const VoirCommandes = () => {
                       >
                         {({ blob, url, loading, error }) =>
                           loading ? (
-                            "Loading document..."
+                            <p className="text-sm">Chargement...</p>
                           ) : (
                             <FaFilePdf className=" text-[25px] lg:text-[40px] text-red-500" />
                           )
@@ -200,7 +200,7 @@ const VoirCommandes = () => {
               </tbody>
             ))}
           </table>
-          <div className="absolute w-full bottom-2 left-0">
+          <div className=" w-full">
             <hr className=" my-3 " />
             <div className="w-full flex justify-center my-1   ">
               <Pagination

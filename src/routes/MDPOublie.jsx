@@ -48,7 +48,7 @@ const MDPOublie = () => {
           type="email"
           className="outline-none border border-gray-300 rounded-md w-full py-2 mt-1 pl-2 placeholder:text-[14px] md:placeholder:text-[16px]
         "
-          placeholder="Enter your email"
+          placeholder="Entrez votre email"
         />
         <input
           className="hover:bg-bleu4 bg-orange3 transition-all duration-500 text-white font-medium mt-4 w-full  py-2 rounded-md cursor-pointer "

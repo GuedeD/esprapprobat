@@ -127,9 +127,11 @@ const Recents = () => {
   return (
     <section className="bg-white rounded-t-[40px] md:rounded-t-[60px] -mt-[70px] z-20 relative">
       <div className=" mx-auto max-w-[83%]  ">
-        <h2 className="pt-[30px] text-[20px] md:text-[22px] flex flex-col items-center">
+        <h2 className="pt-[30px] text-[16px] md:text-[22px] flex flex-col items-center">
           <span>Articles Récemment Ajoutés : </span>
-          <span className="text-[26px] font-bold ">Gros Oeuvre </span>
+          <span className=" text-[22px] md:text-[26px] font-bold ">
+            Gros Oeuvre{" "}
+          </span>
         </h2>
 
         <div className="relative h-full">

@@ -97,7 +97,8 @@ const Checkout = () => {
 
           console.log(commande?.total, couponApplied);
           let calcul =
-            (Number(commande?.total) * Number(couponData.reduction)) / 100;
+            Number(commande?.total) -
+            Number((commande?.total * couponData.reduction) / 100);
           setNewTotal(calcul);
           setCouponApplied(couponData.reduction);
           setCoupon("");

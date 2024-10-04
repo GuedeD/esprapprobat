@@ -8,7 +8,9 @@ import ContactMe from "./ContactMe";
 
 const Footer = () => {
   const phoneNumber = "+2250500769696";
-  const message = "Bonjour Approbat !";
+  const message =
+    "Bonjour Approbat,\nNotre équipe est à votre disposition et assure un suivi personnalisé de votre commande!";
+
   return (
     <footer className="h-full text-white py-[11px]    backgroundFooter relative ">
       <div className="max-w-[95%]  md:max-w-[85%] mx-auto ">

@@ -56,7 +56,11 @@ const Connexion = () => {
         }, 1500);
       })
       .catch((err) => {
-        toast.error(err.message);
+        if (err.message === "Firebase: Error (auth/invalid-credential).") {
+          toast.error("Identifiants incorrectes !");
+        } else {
+          toast.error(err.message);
+        }
       });
   }
 

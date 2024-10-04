@@ -143,9 +143,9 @@ const Coupons = () => {
               onChange={(e) => setReduction(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-[20px] lg:flex-row lg:gap-[100px]  lg:items-center items-start ">
+          <div className="flex flex-col gap-[20px] lg:flex-row lg:gap-[70px]  lg:items-center items-start ">
             <div>
-              <fieldset className="md:w-[300px] border-[1.5px] p-2 rounded border-bleu4">
+              <fieldset className="w-full md:w-[200px] border-[1.5px] p-2 rounded border-bleu4">
                 <legend
                   className="px-3 text-[14px] text-bleu4 font-medium "
                   htmlFor=""
@@ -168,7 +168,7 @@ const Coupons = () => {
               </fieldset>
             </div>
             <div>
-              <fieldset className=" md:w-[300px] border-[1.5px] p-2 rounded border-bleu4">
+              <fieldset className="w-full md:w-[200px] border-[1.5px] p-2 rounded border-bleu4">
                 <legend
                   htmlFor=""
                   className="px-3 text-[14px] text-bleu4 font-medium "

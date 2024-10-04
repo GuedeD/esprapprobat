@@ -75,10 +75,10 @@ const AdminLayout = () => {
           Bon retour {userInfo.nomComplet.split(" ")[1]} 👋🏾
         </p>
       </nav>
-      <div className="max-w-[95%] mt-[12vh] md:mt-[12vh] lg:[mt-9vh] xl:mt-[12vh]  mx-auto my-10 flex min-h-[60vh] sm:min-h-[60vh]  md:min-h-[60vh]  md2:min-h-[60vh] lg:min-h-[60vh] xl:min-h-[60vh] transition-all duration-500">
+      <div className="max-w-[95%] mt-[12vh] md:mt-[12vh]  lg:mt-[15vh] xl:mt-[15vh]  mx-auto my-10 flex min-h-[60vh] sm:min-h-[60vh]  md:min-h-[70vh]  md2:min-h-[70vh] lg:min-h-[70vh] xl:min-h-[70vh] transition-all duration-500">
         {/* LEFT */}
         <div
-          className={`border bg-bleu4 flex  fixed  min-h-[60vh] px-2 md:px-5      text-white p-3 rounded ${
+          className={`border bg-bleu4 flex  fixed  min-h-[60vh] md:min-h-[70vh] px-2 md:px-5      text-white p-3 rounded ${
             hideDashboard
               ? "w-[60px] sm:w-[75px] md:w-[90px] md2:w-[100px] lg:w-[100px] xl:w-[100px]     "
               : "w-[60px] sm:w-[60px] md:w-[240px] md2:w-[240px] lg:w-[240px] xl:w-[250px]    "
@@ -146,8 +146,8 @@ const AdminLayout = () => {
         <div
           className={`border rounded  ${
             hideDashboard
-              ? "min-w-[70vw] ml-[18vw] sm:min-w-[82vw] sm:ml-[13vw] md:min-w-[80vw] md:ml-[14vw] lg:min-w-[84vw]  lg:ml-[12vw] xl:min-w-[85vw]  xl:ml-[8vw] "
-              : "min-w-[70vw] ml-[18vw] sm:min-w-[85vw] sm:ml-[10vw] md:min-w-[60vw]  md:ml-[33vw] md2:min-w-[64vw] md2:ml-[30vw] lg:min-w-[70vw]  lg:ml-[25vw] xl:min-w-[76vw]  xl:ml-[19vw]     "
+              ? "w-[75vw] ml-[18vw] sm:w-[85vw] sm:ml-[12vw] md:w-[80vw] md:ml-[14vw] md2:w-[82vw] md2:ml-[14vw] lg:w-[84vw]  lg:ml-[12vw] xl:w-[85vw]  xl:ml-[8vw] "
+              : "w-[75vw] ml-[18vw] sm:w-[85vw] sm:ml-[12vw] md:w-[60vw]  md:ml-[33vw] md2:w-[64vw] md2:ml-[30vw] lg:w-[74vw]  lg:ml-[24vw] xl:w-[75vw]  xl:ml-[21vw]     "
           }`}
         >
           <Outlet />

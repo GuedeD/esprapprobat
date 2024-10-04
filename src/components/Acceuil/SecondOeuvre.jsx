@@ -117,9 +117,11 @@ const SecondOeuvre = () => {
   return (
     <section className="-mt-[50px] ">
       <div className=" mx-auto max-w-[83%]  ">
-        <h2 className="pt-[30px] text-[20px] md:text-[22px] flex flex-col items-center">
+        <h2 className="pt-[30px] text-[16px] md:text-[22px] flex flex-col items-center">
           <span>Articles Récemment Ajoutés : </span>
-          <span className="text-[26px] font-bold ">Second Oeuvre </span>
+          <span className="text-[22px] md:text-[26px] font-bold ">
+            Second Oeuvre{" "}
+          </span>
         </h2>
 
         <div className="relative h-full">

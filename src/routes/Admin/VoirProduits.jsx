@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  recupererProduit,
-  recupererProduits,
-  recupererProduitsAdmin,
-} from "../../utils/hooks";
+import { recupererProduit, recupererProduitsAdmin } from "../../utils/hooks";
 // import { useQuery } from "@tanstack/react-query";
 import Lottie from "lottie-react";
-import Empty from "../../assets/Images/animation/EmptyOrder.json";
 import { GrPowerReset } from "react-icons/gr";
 
 import Pagination from "rc-pagination";
@@ -16,14 +11,9 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { MdDeleteSweep } from "react-icons/md";
 import Swal from "sweetalert2";
 import { IoSearch } from "react-icons/io5";
-// import { useProducts } from "../../utils/queries";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { productsToShow } from "../../redux/espremium";
-import { IconContext } from "react-icons";
-import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 
 import Aloading from "../../assets/Images/animation/ALoading.json";
 import ZeroPurchase from "../../assets/Images/animation/EmptyOrder.json";

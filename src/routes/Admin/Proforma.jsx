@@ -189,7 +189,7 @@ const Proforma = () => {
                       >
                         {({ blob, url, loading, error }) =>
                           loading ? (
-                            <span>Loading document...</span>
+                            <span>Chargement...</span>
                           ) : (
                             <FaFilePdf className="mx-auto text-[20px] md:text-[28px]" />
                           )

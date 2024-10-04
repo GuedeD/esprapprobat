@@ -10,7 +10,7 @@
 
 @layer base {
   h2 {
-    @apply text-center pb-8 text-[26px] font-medium text-orange3 font-sans2;
+    @apply text-center pb-4 md:pb-8 text-[22px] md:text-[26px] font-medium text-orange3 font-sans2;
   }
   section {
     @apply my-[60px];

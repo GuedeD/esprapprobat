@@ -1,10 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { FaRegHeart } from "react-icons/fa";
-import { LiaWhatsapp } from "react-icons/lia";
 
 import { useEffect, useState } from "react";
-import { HiMiniMinusSmall, HiMiniPlusSmall } from "react-icons/hi2";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import toast from "react-hot-toast";
@@ -17,6 +14,7 @@ import {
   TelegramShareButton,
   WhatsappShareButton,
 } from "react-share";
+import { Helmet } from "react-helmet";
 
 import {
   FacebookIcon,
@@ -27,7 +25,7 @@ import {
 import Commentaires from "../components/Commentaires";
 import VoirPlus from "../components/VoirPlus";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, updateQuantity } from "../redux/espremium";
+import { addToCart } from "../redux/espremium";
 import DevisButton from "../components/DevisButton";
 import {
   arrayRemove,
@@ -39,7 +37,7 @@ import {
 import { db } from "../config/firebase";
 import { Rating } from "@smastrom/react-rating";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { recuperComments, recuperProduitParId } from "../utils/hooks";
+import { recuperProduitParId } from "../utils/hooks";
 
 const Star = (
   <path d="M62 25.154H39.082L32 3l-7.082 22.154H2l18.541 13.693L13.459 61L32 47.309L50.541 61l-7.082-22.152L62 25.154z" />
@@ -70,9 +68,7 @@ const Produit = () => {
   });
 
   const [categorie, setCategorie] = useState(produit?.categorie);
-  // const [quantiteMinimale, setQuantiteMinimale] = useState(
-  //   Number(produit.quantiteMinimale)
-  // );
+
   const [rating, setRating] = useState(0);
   const queryClient = useQueryClient(); // Get QueryClient instance
 
@@ -196,6 +192,8 @@ const Produit = () => {
     }
   }, [location.state?.produit]);
 
+  const productUrl = window?.location.href;
+
   if (isLoading) {
     return (
       <section className="flex flex-col md:flex-row max-w-[80%] mx-auto gap-[50px] justify-center items-center min-h-[700px]">
@@ -213,6 +211,39 @@ const Produit = () => {
     <>
       <div className="max-w-[95%]  md:max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 items-center py-10  gap-[40px] md:gap-0  ">
         {/* LEFT SIDE */}
+
+        <Helmet>
+          <title>{produit?.nom || "Product Name"}</title>
+          <meta
+            name="description"
+            content={produit?.description || "Product description"}
+          />
+
+          {/* Open Graph */}
+          <meta property="og:url" content={productUrl} />
+          <meta property="og:type" content="product" />
+          <meta property="og:title" content={produit?.nom || "Product Name"} />
+          <meta
+            property="og:description"
+            content={produit?.description || "Product description"}
+          />
+          <meta
+            property="og:image"
+            content={produit?.image || "default-image.jpg"}
+          />
+
+          {/* Twitter Cards */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={produit?.nom || "Product Name"} />
+          <meta
+            name="twitter:description"
+            content={produit?.description || "Product description"}
+          />
+          <meta
+            name="twitter:image"
+            content={produit?.image || "default-image.jpg"}
+          />
+        </Helmet>
         <div className=" justify-self-center flex flex-col items-center mt-5 md:mt-0 	 ">
           <Zoom>
             <img
@@ -225,18 +256,18 @@ const Produit = () => {
             <p className="italic text-[14px] text-slate-500 ">
               Partager sur :{" "}
             </p>
-            <FacebookShareButton url={window?.location.href}>
+            <FacebookShareButton url={productUrl}>
               <FacebookIcon size={38} round={true} />
             </FacebookShareButton>
 
-            <LinkedinShareButton url={window?.location.href}>
+            <LinkedinShareButton url={productUrl}>
               <LinkedinIcon size={38} round={true} />
             </LinkedinShareButton>
 
-            <TelegramShareButton url={window?.location.href}>
+            <TelegramShareButton url={productUrl}>
               <TelegramIcon size={38} round={true} />
             </TelegramShareButton>
-            <WhatsappShareButton url={window?.location.href}>
+            <WhatsappShareButton url={productUrl}>
               <WhatsappIcon size={38} round={true} />
             </WhatsappShareButton>
           </div>

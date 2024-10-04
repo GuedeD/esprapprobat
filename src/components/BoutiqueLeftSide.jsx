@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   categories,
   sousCategories1,
@@ -13,6 +13,7 @@ import Drawer from "rc-drawer";
 import "rc-drawer/assets/index.css";
 
 import { FaWindowClose } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 const BoutiqueLeftSide = ({
   priceRange,
@@ -33,6 +34,7 @@ const BoutiqueLeftSide = ({
       setPriceRange(range);
     }
   };
+  const { pathname } = useLocation();
 
   const [showGO, setShowGO] = useState(true);
   const [showSO, setShowSO] = useState(false);
@@ -50,6 +52,10 @@ const BoutiqueLeftSide = ({
     setCategorieSelectionner("");
     setPriceRange([100, 1000000]);
   }
+
+  useEffect(() => {
+    closeDrawer();
+  }, [categorieSelectionner]);
   return (
     <>
       <div className="border hidden md:block max-w-[280px] shadow-md rounded-md sticky h-fit">
