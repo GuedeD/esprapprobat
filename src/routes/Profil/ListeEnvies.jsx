@@ -76,25 +76,29 @@ const ListeEnvies = () => {
   if (error) {
     return (
       <section className="flex justify-center items-center min-h-[300px]">
-        <p>Error loading products.</p>
+        <p>Une erreur s'est produite lors de la récupération des données.</p>
       </section>
     );
   }
 
   if (!allProductsEnvies || allProductsEnvies.length === 0) {
     return (
-      <div className="flex  items-center h-full w-full justify-center">
+      <div className="flex   items-center h-full w-full justify-center">
         <div>
-          <p className="text-center font-medium text-bleu4 text-[20px] ">
+          <p className="text-center font-medium text-bleu4 text-base md:text-[20px] ">
             Aucun produit dans vos favoris{" "}
           </p>
-          <Lottie animationData={Nothing} loop={true} className="w-[300px]" />
+          <Lottie
+            animationData={Nothing}
+            loop={true}
+            className="w-[200px] mx-auto md:w-[300px]"
+          />
           <Link
             to="/boutique"
             className="flex items-center justify-center gap-2 my-5 bg-orange3 text-white p-2 rounded hover:bg-bleu4 duration-500 transition-all "
           >
-            <IoIosArrowBack className="text-[20px]" />{" "}
-            <span> Retournez faire vos achats</span>
+            <IoIosArrowBack className="md:text-[20px]" />{" "}
+            <span>Retournez faire vos achats</span>
           </Link>
         </div>
       </div>

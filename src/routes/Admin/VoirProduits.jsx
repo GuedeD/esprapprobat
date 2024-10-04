@@ -157,7 +157,7 @@ const VoirProduits = () => {
   if (error) {
     return (
       <section className="flex justify-center items-center h-full">
-        <p>Une erreur s'est produite lors de la récupération des données </p>
+        <p>Une erreur s'est produite lors de la récupération des données.</p>
       </section>
     );
   }
@@ -286,16 +286,20 @@ const VoirProduits = () => {
                 </div>
               ))
             ) : (
-              <div className="h-full flex flex-col w-full justify-center  items-center mt-5">
-                <p className="uppercase font-medium text-[16px] md:text-[20px]  font-sans2 ">
-                  Aucun produit !
-                </p>
+              <div>
+                {currentItems && currentItems.length === 0 && (
+                  <div className="h-full flex flex-col w-full justify-center  items-center mt-5">
+                    <p className="uppercase font-medium text-[16px] md:text-[20px]  font-sans2 ">
+                      Aucun produit !
+                    </p>
 
-                <Lottie
-                  animationData={ZeroPurchase}
-                  loop={true}
-                  className="w-[300px]  md:w-[500px]"
-                />
+                    <Lottie
+                      animationData={ZeroPurchase}
+                      loop={true}
+                      className="w-[300px]  md:w-[500px]"
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>

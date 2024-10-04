@@ -24,7 +24,7 @@ const Commandes = () => {
   if (error) {
     return (
       <section className="flex justify-center items-center h-full">
-        <p>Une erreur s'est produite lors de la récupération des données </p>
+        <p>Une erreur s'est produite lors de la récupération des données.</p>
       </section>
     );
   }
@@ -69,14 +69,14 @@ const Commandes = () => {
         <CommandesCardEN allCommandes={allCommandes} />
       ) : (
         <div className="h-full flex flex-col justify-center  items-center -mt-5">
-          <p className="uppercase p-2 text-center font-medium text-sm lg:text-[20px] font-sans2 ">
+          <p className="uppercase p-2 text-center font-medium text-xs md:text-sm lg:text-[20px] font-sans2 ">
             Aucune commande en cours pour le moment.
           </p>
 
           <Lottie
             animationData={ZeroPurchase}
             loop={true}
-            className=" w-[300px] lg:w-[500px]"
+            className=" w-[200px] lg:w-[500px]"
           />
         </div>
       )}

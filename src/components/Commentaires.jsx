@@ -44,9 +44,9 @@ const customStyles = {
   inactiveBoxBorderColor: "#a8a8a8",
 };
 
-const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
+const Commentaires = ({ produit, error, refecthProduitId }) => {
   useEffect(() => {
-    let validNotes = allCom?.commentaires.filter(
+    let validNotes = produit?.commentaires.filter(
       (i) => typeof i.note === "number" && !isNaN(i.note)
     );
     let avisNote = Math.round(
@@ -56,18 +56,18 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
     );
 
     setRating(avisNote);
-  }, [allCom?.commentaires]);
-  // console.log("---------", allCom).comm?.commentaires;
-  let avisNote1 = allCom?.commentaires.filter((el) => el.note === 1).length;
-  let moyenne1 = (avisNote1 / allCom?.commentaires.length) * 100;
-  let avisNote2 = allCom?.commentaires.filter((el) => el.note === 2).length;
-  let moyenne2 = (avisNote2 / allCom?.commentaires.length) * 100;
-  let avisNote3 = allCom?.commentaires.filter((el) => el.note === 3).length;
-  let moyenne3 = (avisNote3 / allCom?.commentaires.length) * 100;
-  let avisNote4 = allCom?.commentaires.filter((el) => el.note === 4).length;
-  let moyenne4 = (avisNote4 / allCom?.commentaires.length) * 100;
-  let avisNote5 = allCom?.commentaires.filter((el) => el.note === 5).length;
-  let moyenne5 = (avisNote5 / allCom?.commentaires.length) * 100;
+  }, [produit?.commentaires]);
+  // console.log("---------", produit).comm?.commentaires;
+  let avisNote1 = produit?.commentaires.filter((el) => el.note === 1).length;
+  let moyenne1 = (avisNote1 / produit?.commentaires.length) * 100;
+  let avisNote2 = produit?.commentaires.filter((el) => el.note === 2).length;
+  let moyenne2 = (avisNote2 / produit?.commentaires.length) * 100;
+  let avisNote3 = produit?.commentaires.filter((el) => el.note === 3).length;
+  let moyenne3 = (avisNote3 / produit?.commentaires.length) * 100;
+  let avisNote4 = produit?.commentaires.filter((el) => el.note === 4).length;
+  let moyenne4 = (avisNote4 / produit?.commentaires.length) * 100;
+  let avisNote5 = produit?.commentaires.filter((el) => el.note === 5).length;
+  let moyenne5 = (avisNote5 / produit?.commentaires.length) * 100;
   const [rating, setRating] = useState(0);
 
   const [ratingPut, setRatingPut] = useState(0);
@@ -91,7 +91,7 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
       if (jModifier) {
         const produitsRef = doc(db, "produits", produit.id);
 
-        const updatedCommentaires = allCom?.commentaires.map((commentaire) => {
+        const updatedCommentaires = produit?.commentaires.map((commentaire) => {
           if (commentaire.id === idModif) {
             return {
               id: commentaire.id,
@@ -138,7 +138,7 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
             };
 
             const produitsRef = doc(db, "produits", produit.id);
-            const itemExists = allCom?.commentaires.some(
+            const itemExists = produit?.commentaires.some(
               (commentaire) => commentaire.idClient === userInfo.id
             );
             if (itemExists) {
@@ -195,7 +195,7 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
       if (result.isConfirmed) {
         try {
           const produitsRef = doc(db, "produits", produit.id);
-          const updatedCommentaires = allCom?.commentaires.filter(
+          const updatedCommentaires = produit?.commentaires.filter(
             (commentaire) => commentaire.id !== id
           );
           await updateDoc(produitsRef, {
@@ -219,7 +219,7 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
 
   const startIdx = (currentPage - 1) * pageSize;
   const endIdx = startIdx + pageSize;
-  const currentItems = allCom?.commentaires.slice(startIdx, endIdx);
+  const currentItems = produit?.commentaires.slice(startIdx, endIdx);
 
   if (error) {
     return (
@@ -366,9 +366,9 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
       </div>
       <hr />
       {/* COMMENTAIRES CLIENTS VERIFIES  */}
-      {allCom?.commentaires.length > 0 ? (
+      {produit?.commentaires.length > 0 ? (
         <p className="max-w-[85%] mx-auto font-medium text-[24px] my-2 ">
-          Avis clients vérifiés ({allCom?.commentaires.length})
+          Avis clients vérifiés ({produit?.commentaires.length})
         </p>
       ) : (
         <p className="max-w-[85%] mx-auto font-medium text-[24px] my-2 ">
@@ -378,7 +378,7 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
       <hr />
       <div className=" max-w-[85%] mx-auto my-[30px] relative pb-[30px] ">
         {/* <div className="border rounded-md p-4 flex flex-col gap-[20px] relative"> */}
-        {produit && allCom?.commentaires.length > 0
+        {produit && produit?.commentaires.length > 0
           ? currentItems.map((commentaire, i) => (
               <div
                 key={i}
@@ -457,13 +457,13 @@ const Commentaires = ({ produit, allCom, error, refecthProduitId }) => {
 
         {/* </div> */}
       </div>
-      {allCom?.commentaires.length > 0 && (
+      {produit?.commentaires.length > 0 && (
         <div className="absolute w-full -bottom-4  ">
           <div className="w-full flex justify-center my-1   ">
             <Pagination
               style={{ fontWeight: "normal" }}
               current={currentPage} // The current page
-              total={allCom?.commentaires.length} // Total number of products
+              total={produit?.commentaires.length} // Total number of products
               pageSize={pageSize} // Number of items per page
               onChange={onPageChange} // Handle page change
             />

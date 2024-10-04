@@ -10,7 +10,7 @@ const Banner = ({ allImages }) => {
 
         {/* bg-[url('${allImages?.banner}')] */}
         <div
-          className="h-[300px] md:h-[350px] lg:h-[400px] xl:h-[500px] w-full  "
+          className="h-[300px] md:h-[350px] lg:h-[400px] xl:h-[550px] w-full  "
           style={{
             backgroundImage: `url(${allImages?.banner})`,
             backgroundSize: "cover", // Adjust to your needs

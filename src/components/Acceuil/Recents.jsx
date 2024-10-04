@@ -91,12 +91,12 @@ const Recents = () => {
     return (
       <section className="flex gap-4 justify-center items-center min-h-[300px]">
         {[0, 1].map((i) => (
-          <div key={i} className="flex w-40 md:w-52 flex-col gap-4">
+          <div key={i} className="flex w-[100px] md:w-52 flex-col gap-[40px] ">
             <div className="flex items-center gap-5">
               <div className="skeleton h-16 w-16 shrink-0 rounded-full"></div>
               <div className="flex flex-col gap-4">
-                <div className="skeleton h-4 w-20"></div>
-                <div className="skeleton h-4 w-28"></div>
+                {/* <div className="skeleton h-4 w-20"></div>
+                <div className="skeleton h-4 w-28"></div> */}
               </div>
             </div>
             <div className="skeleton h-32 w-full"></div>
@@ -110,7 +110,7 @@ const Recents = () => {
   if (error) {
     return (
       <section className="flex justify-center items-center min-h-[300px]">
-        <p>Error loading recent products.</p>
+        <p>Une erreur s'est produite lors de la récupération des données.</p>
       </section>
     );
   }
@@ -119,7 +119,7 @@ const Recents = () => {
   if (!allProductsRecents || allProductsRecents.length === 0) {
     return (
       <section className="flex justify-center items-center min-h-[300px]">
-        <p>No recent products found.</p>
+        <p> Aucun produit pour le moment..</p>
       </section>
     );
   }

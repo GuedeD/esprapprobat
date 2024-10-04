@@ -61,43 +61,56 @@ const Produit = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const [produit, setProduit] = useState(() => {
-    return (
-      location.state?.produit || JSON.parse(localStorage.getItem("produit"))
-    );
-  });
+  // const [produit, setProduit] = useState(() => {
+  //   return (
+  //     location.state?.produit || JSON.parse(localStorage.getItem("produit"))
+  //   );
+  // });
 
-  const [categorie, setCategorie] = useState(produit?.categorie);
+  const produitID = location.state?.produit.id;
+  // console.log(produitID);
 
   const [rating, setRating] = useState(0);
   const queryClient = useQueryClient(); // Get QueryClient instance
 
   const {
-    data: allCom,
+    data: produit,
     error,
     isLoading,
     refetch: refecthProduitId,
   } = useQuery({
-    queryKey: ["allCom", produit?.id],
-    queryFn: () => recuperProduitParId(produit?.id),
+    queryKey: ["produit", produitID],
+    queryFn: () => recuperProduitParId(produitID),
     enabled: true,
     staleTime: 0, // Data is always considered stale
     cacheTime: 0, // Data cache will be garbage collected as soon as it's inactive
   });
-
+  // console.log(produit);
   useEffect(() => {
     return () => {
-      queryClient.removeQueries(["allCom", produit?.id]); // Remove query from cache on unmount
+      queryClient.removeQueries(["produit", produitID]); // Remove query from cache on unmount
     };
-  }, [location.pathname, queryClient, produit?.id]);
+  }, [location.pathname, queryClient, produitID]);
 
-  const [quantite, setQuantite] = useState(Number(produit?.quantiteMinimale));
-  const [prix, setPrix] = useState(produit?.prixReference);
+  const [quantite, setQuantite] = useState("");
+  const [prix, setPrix] = useState("");
   const [type, setType] = useState("");
-  const options = produit?.types.map((type) => ({
-    value: type.type,
-    label: type.type,
-  }));
+  const [options, setOptions] = useState("");
+  // const [categorie, setCategorie] = useState(produit?.categorie);
+
+  useEffect(() => {
+    setType("");
+    if (produit) {
+      setPrix(Number(produit.prixReference));
+      setQuantite(Number(produit.quantiteMinimale));
+      const option = produit?.types.map((type) => ({
+        value: type.type,
+        label: type.type,
+      }));
+
+      setOptions(option);
+    }
+  }, [produit, produitID]);
 
   function addToCartFn(item) {
     if (produit?.types.length > 0 && !type) {
@@ -172,7 +185,7 @@ const Produit = () => {
   }, [type]);
 
   useEffect(() => {
-    let validNotes = allCom?.commentaires.filter(
+    let validNotes = produit?.commentaires.filter(
       (i) => typeof i.note === "number" && !isNaN(i.note)
     );
     let avisNote = Math.round(
@@ -182,240 +195,471 @@ const Produit = () => {
     );
 
     setRating(avisNote);
-  }, [allCom?.commentaires]);
+  }, [produit?.commentaires]);
 
-  useEffect(() => {
-    // Save produit in localStorage whenever it changes
-    if (location.state?.produit) {
-      setProduit(location.state.produit);
-      localStorage.setItem("produit", JSON.stringify(location.state.produit));
-    }
-  }, [location.state?.produit]);
+  // useEffect(() => {
+  //   // Save produit in localStorage whenever it changes
+  //   if (location.state?.produit) {
+  //     setProduit(location.state.produit);
+  //     localStorage.setItem("produit", JSON.stringify(location.state.produit));
+  //   }
+  // }, [location.state?.produit]);
 
   const productUrl = window?.location.href;
 
-  if (isLoading) {
+  if (error) {
     return (
-      <section className="flex flex-col md:flex-row max-w-[80%] mx-auto gap-[50px] justify-center items-center min-h-[700px]">
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className="skeleton h-[270px] w-[270px] md:h-[400px] md:w-[400px] "
-          ></div>
-        ))}
+      <section className="flex justify-center items-center h-full">
+        <p>Une erreur s'est produite lors de la récupération des données </p>
       </section>
     );
   }
 
   return (
-    <>
-      <div className="max-w-[95%]  md:max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 items-center py-10  gap-[40px] md:gap-0  ">
-        {/* LEFT SIDE */}
-
-        <Helmet>
-          <title>{produit?.nom || "Product Name"}</title>
-          <meta
-            name="description"
-            content={produit?.description || "Product description"}
-          />
-
-          {/* Open Graph */}
-          <meta property="og:url" content={productUrl} />
-          <meta property="og:type" content="product" />
-          <meta property="og:title" content={produit?.nom || "Product Name"} />
-          <meta
-            property="og:description"
-            content={produit?.description || "Product description"}
-          />
-          <meta
-            property="og:image"
-            content={produit?.image || "default-image.jpg"}
-          />
-
-          {/* Twitter Cards */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={produit?.nom || "Product Name"} />
-          <meta
-            name="twitter:description"
-            content={produit?.description || "Product description"}
-          />
-          <meta
-            name="twitter:image"
-            content={produit?.image || "default-image.jpg"}
-          />
-        </Helmet>
-        <div className=" justify-self-center flex flex-col items-center mt-5 md:mt-0 	 ">
-          <Zoom>
-            <img
-              src={produit?.image}
-              className=" w-[290px] h-[290px] xl:w-[400px] xl:h-[400px]    object-cover rounded-lg "
-              alt=""
-            />
-          </Zoom>
-          <div className="flex items-center gap-4 mt-5 md:mt-10">
-            <p className="italic text-[14px] text-slate-500 ">
-              Partager sur :{" "}
-            </p>
-            <FacebookShareButton url={productUrl}>
-              <FacebookIcon size={38} round={true} />
-            </FacebookShareButton>
-
-            <LinkedinShareButton url={productUrl}>
-              <LinkedinIcon size={38} round={true} />
-            </LinkedinShareButton>
-
-            <TelegramShareButton url={productUrl}>
-              <TelegramIcon size={38} round={true} />
-            </TelegramShareButton>
-            <WhatsappShareButton url={productUrl}>
-              <WhatsappIcon size={38} round={true} />
-            </WhatsappShareButton>
-          </div>
-        </div>
-        {/* RIGHT SIDE */}
-        <div className="space-y-[20px] ">
-          {produit?.livraisonGratuite ? (
-            <p className="uppercase font-semibold text-[12px] bg-green-600 w-fit text-white p-1 ">
-              livraison gratuite
-            </p>
-          ) : (
-            ""
-          )}
-          <div>
-            <p className=" text-[25px] md:text-[30px] capitalize font-medium ">
-              {produit?.nom}{" "}
-            </p>
-            <p className="mb-2 ">
-              <span className="">Catégorie</span>
-              <span className="uppercase font-medium">: {categorie}</span>{" "}
-            </p>
-            <div className="flex items-center gap-3 ">
-              <Rating
-                readOnly
-                style={{ maxWidth: 160 }}
-                value={rating}
-                itemStyles={customStyles}
-                radius="large"
-                spaceBetween="small"
-                spaceInside="large"
-              />
-              <p className="text-[14px]">
-                ({allCom?.commentaires.length} Avis vérifiés)
-              </p>
-            </div>
-          </div>
-          <p className="  ">{produit?.description}</p>
-          {produit?.types.length > 0 && (
-            <div className="flex items-center gap-2">
-              <p className="font-medium uppercase">Type : </p>
-              <Select
-                value={type}
-                onChange={setType}
-                options={options}
-                placeholder="Selectionner le type"
-                className=" w-[250px]  select-bordered bg-slate-50 font-sans text-[16px] "
-              />
-            </div>
-          )}
-          <div>
-            <p className="italic text-[14px] ">
-              {produit?.types.length > 0
-                ? "*le prix s'ajustera en fonction du type choisi"
-                : "Prix de l'article"}
-            </p>
-
-            <div className="flex items-center gap-1 mt-1">
-              <p className="font-semibold text-[20px] "> {prix} Fcfa</p>
-              <p className="text-[14px]">l&apos;unité</p>
-            </div>
-          </div>
-
-          <div>
-            <p className="font-medium italic text-[14px] mb-2 text-orange4">
-              <span>Quantité minimale</span> :{" "}
-              <span>{produit?.quantiteMinimale}</span>{" "}
-            </p>
+    <div>
+      {isLoading ? (
+        <section className="flex flex-col md:flex-row max-w-[80%] mx-auto gap-[50px] justify-center items-center min-h-[700px]">
+          {[0, 1].map((i) => (
             <div
-              className=" grid grid-cols-2  items-center gap-5 
-        "
-            >
-              <div className="border grid grid-cols-2 h-[60px] items-center rounded-md   ">
-                <div className="h-full flex items-center ">
-                  <p className="uppercase font-medium w-full text-center text-[14px] md:text-base ">
-                    Quantité
-                  </p>
-                  <div className="w-[0.5px] h-full  bg-black  " />
-                </div>
-                <div className="h-full flex items-center ">
-                  <input
-                    type="number"
-                    value={quantite}
-                    onChange={(e) => checkQuantite(e)}
-                    className="outline-none border-none bg-transparent ml-4  h-full  w-full "
+              key={i}
+              className="skeleton h-[270px] w-[270px] md:h-[400px] md:w-[400px] "
+            ></div>
+          ))}
+        </section>
+      ) : (
+        produit && (
+          <>
+            <div className="max-w-[95%]  md:max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 items-center py-10  gap-[40px] md:gap-0  ">
+              {/* LEFT SIDE */}
+
+              <Helmet>
+                <title>{produit?.nom || "Product Name"}</title>
+                <meta
+                  name="description"
+                  content={produit?.description || "Product description"}
+                />
+
+                {/* Open Graph */}
+                <meta property="og:url" content={productUrl} />
+                <meta property="og:type" content="product" />
+                <meta
+                  property="og:title"
+                  content={produit?.nom || "Product Name"}
+                />
+                <meta
+                  property="og:description"
+                  content={produit?.description || "Product description"}
+                />
+                <meta
+                  property="og:image"
+                  content={produit?.image || "default-image.jpg"}
+                />
+
+                {/* Twitter Cards */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                  name="twitter:title"
+                  content={produit?.nom || "Product Name"}
+                />
+                <meta
+                  name="twitter:description"
+                  content={produit?.description || "Product description"}
+                />
+                <meta
+                  name="twitter:image"
+                  content={produit?.image || "default-image.jpg"}
+                />
+              </Helmet>
+              <div className=" justify-self-center flex flex-col items-center mt-5 md:mt-0 	 ">
+                <Zoom>
+                  <img
+                    src={produit?.image}
+                    className=" w-[290px] h-[290px] xl:w-[400px] xl:h-[400px]    object-cover rounded-lg "
+                    alt=""
                   />
-                  {/* <div className="w-[0.5px] h-full  bg-black " /> */}
+                </Zoom>
+                <div className="flex items-center gap-4 mt-5 md:mt-10">
+                  <p className="italic text-[14px] text-slate-500 ">
+                    Partager sur :{" "}
+                  </p>
+                  <FacebookShareButton url={productUrl}>
+                    <FacebookIcon size={38} round={true} />
+                  </FacebookShareButton>
+
+                  <LinkedinShareButton url={productUrl}>
+                    <LinkedinIcon size={38} round={true} />
+                  </LinkedinShareButton>
+
+                  <TelegramShareButton url={productUrl}>
+                    <TelegramIcon size={38} round={true} />
+                  </TelegramShareButton>
+                  <WhatsappShareButton url={productUrl}>
+                    <WhatsappIcon size={38} round={true} />
+                  </WhatsappShareButton>
                 </div>
               </div>
-              {cart.find((el) => el.id === produit.id) ? (
-                <button
-                  className="text-white bg-bleu4 h-full rounded-md w-[140px] md:w-[180px]  transition-all duration-500 shadow-md"
-                  onClick={() => addToCartFn(produit)}
-                >
-                  {" "}
-                  Déjà ajouté
-                </button>
-              ) : (
-                <button
-                  className="text-white bg-orange3 h-full rounded-md w-[140px] md:w-[180px] hover:bg-bleu4 transition-all text-[14px] md:text-base duration-500 shadow-md "
-                  onClick={() => addToCartFn(produit)}
-                >
-                  Ajouter au panier
-                </button>
-              )}
+              {/* RIGHT SIDE */}
+              <div className="space-y-[20px] ">
+                {produit?.livraisonGratuite ? (
+                  <p className="uppercase font-semibold text-[12px] bg-green-600 w-fit text-white p-1 ">
+                    livraison gratuite
+                  </p>
+                ) : (
+                  ""
+                )}
+                <div>
+                  <p className=" text-[25px] md:text-[30px] capitalize font-medium ">
+                    {produit?.nom}{" "}
+                  </p>
+                  <p className="mb-2 ">
+                    <span className="">Catégorie</span>
+                    <span className="uppercase font-medium">
+                      : {produit?.categorie}
+                    </span>{" "}
+                  </p>
+                  <div className="flex items-center gap-3 ">
+                    <Rating
+                      readOnly
+                      style={{ maxWidth: 160 }}
+                      value={rating}
+                      itemStyles={customStyles}
+                      radius="large"
+                      spaceBetween="small"
+                      spaceInside="large"
+                    />
+                    <p className="text-[14px]">
+                      ({produit?.commentaires.length} Avis vérifiés)
+                    </p>
+                  </div>
+                </div>
+                <p className="  ">{produit?.description}</p>
+                {produit?.types.length > 0 && (
+                  <div className="flex items-center gap-2">
+                    <p className="font-medium uppercase">Type : </p>
+                    <Select
+                      value={type}
+                      onChange={setType}
+                      options={options}
+                      placeholder="Selectionner le type"
+                      className=" w-[250px]  select-bordered bg-slate-50 font-sans text-[16px] "
+                    />
+                  </div>
+                )}
+                <div>
+                  <p className="italic text-[14px] ">
+                    {produit?.types.length > 0
+                      ? "*le prix s'ajustera en fonction du type choisi"
+                      : "Prix de l'produit"}
+                  </p>
+
+                  <div className="flex items-center gap-1 mt-1">
+                    <p className="font-semibold text-[20px] "> {prix} Fcfa</p>
+                    <p className="text-[14px]">l&apos;unité</p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="font-medium italic text-[14px] mb-2 text-orange4">
+                    <span>Quantité minimale</span> :{" "}
+                    <span>{produit?.quantiteMinimale}</span>{" "}
+                  </p>
+                  <div
+                    className=" grid grid-cols-2  items-center gap-5 
+          "
+                  >
+                    <div className="border grid grid-cols-2 h-[60px] items-center rounded-md   ">
+                      <div className="h-full flex items-center ">
+                        <p className="uppercase font-medium w-full text-center text-[14px] md:text-base ">
+                          Quantité
+                        </p>
+                        <div className="w-[0.5px] h-full  bg-black  " />
+                      </div>
+                      <div className="h-full flex items-center ">
+                        <input
+                          type="number"
+                          value={quantite}
+                          onChange={(e) => checkQuantite(e)}
+                          className="outline-none border-none bg-transparent ml-4  h-full  w-full "
+                        />
+                        {/* <div className="w-[0.5px] h-full  bg-black " /> */}
+                      </div>
+                    </div>
+                    {cart.find((el) => el.id === produit.id) ? (
+                      <button
+                        className="text-white bg-bleu4 h-full rounded-md w-[140px] md:w-[180px]  transition-all duration-500 shadow-md"
+                        onClick={() => addToCartFn(produit)}
+                      >
+                        {" "}
+                        Déjà ajouté
+                      </button>
+                    ) : (
+                      <button
+                        className="text-white bg-orange3 h-full rounded-md w-[140px] md:w-[180px] hover:bg-bleu4 transition-all text-[14px] md:text-base duration-500 shadow-md "
+                        onClick={() => addToCartFn(produit)}
+                      >
+                        Ajouter au panier
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-center max-w-[83%] gap-7 ">
+                  <DevisButton />
+                  <span
+                    className=" text-orange3 rounded-md flex items-center justify-center
+   cursor-pointer hover:bg-orange3 hover:text-white  duration-500 transition-all  "
+                  >
+                    {produit?.favoris.length > 0 &&
+                    produit.favoris.find((res) => res === userInfo?.id) ? (
+                      <div
+                        className="p-[6px] tooltip"
+                        data-tip="Retirer des favoris"
+                      >
+                        <ImHeart
+                          className="text-[32px] "
+                          onClick={() => addOrRemoveToFav(produit)}
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        className=" p-[6px] tooltip "
+                        data-tip="Ajouter aux favoris"
+                      >
+                        <CgHeart
+                          className="text-[32px]"
+                          onClick={() => addOrRemoveToFav(produit)}
+                        />
+                      </div>
+                    )}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flex items-center max-w-[83%] gap-7 ">
-            <DevisButton />
-            <span
-              className=" text-orange3 rounded-md flex items-center justify-center
- cursor-pointer hover:bg-orange3 hover:text-white  duration-500 transition-all  "
-            >
-              {allCom?.favoris.length > 0 &&
-              allCom.favoris.find((res) => res === userInfo?.id) ? (
-                <div className="p-[6px] tooltip" data-tip="Retirer des favoris">
-                  <ImHeart
-                    className="text-[32px] "
-                    onClick={() => addOrRemoveToFav(produit)}
-                  />
-                </div>
-              ) : (
-                <div
-                  className=" p-[6px] tooltip "
-                  data-tip="Ajouter aux favoris"
-                >
-                  <CgHeart
-                    className="text-[32px]"
-                    onClick={() => addOrRemoveToFav(produit)}
-                  />
-                </div>
-              )}
-            </span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <VoirPlus produit={produit} />
-      </div>
-      <div>
-        <Commentaires
-          produit={produit}
-          allCom={allCom}
-          error={error}
-          refecthProduitId={refecthProduitId}
-        />
-      </div>
-    </>
+            <div>
+              <VoirPlus produit={produit} />
+            </div>
+            <div>
+              <Commentaires
+                produit={produit}
+                // allCom={allCom}
+                error={error}
+                refecthProduitId={refecthProduitId}
+              />
+            </div>
+          </>
+        )
+      )}
+    </div>
   );
+
+  //   return (
+  //     <>
+  //       <div className="max-w-[95%]  md:max-w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2 items-center py-10  gap-[40px] md:gap-0  ">
+  //         {/* LEFT SIDE */}
+
+  //         <Helmet>
+  //           <title>{produit?.nom || "Product Name"}</title>
+  //           <meta
+  //             name="description"
+  //             content={produit?.description || "Product description"}
+  //           />
+
+  //           {/* Open Graph */}
+  //           <meta property="og:url" content={productUrl} />
+  //           <meta property="og:type" content="product" />
+  //           <meta property="og:title" content={produit?.nom || "Product Name"} />
+  //           <meta
+  //             property="og:description"
+  //             content={produit?.description || "Product description"}
+  //           />
+  //           <meta
+  //             property="og:image"
+  //             content={produit?.image || "default-image.jpg"}
+  //           />
+
+  //           {/* Twitter Cards */}
+  //           <meta name="twitter:card" content="summary_large_image" />
+  //           <meta name="twitter:title" content={produit?.nom || "Product Name"} />
+  //           <meta
+  //             name="twitter:description"
+  //             content={produit?.description || "Product description"}
+  //           />
+  //           <meta
+  //             name="twitter:image"
+  //             content={produit?.image || "default-image.jpg"}
+  //           />
+  //         </Helmet>
+  //         <div className=" justify-self-center flex flex-col items-center mt-5 md:mt-0 	 ">
+  //           <Zoom>
+  //             <img
+  //               src={produit?.image}
+  //               className=" w-[290px] h-[290px] xl:w-[400px] xl:h-[400px]    object-cover rounded-lg "
+  //               alt=""
+  //             />
+  //           </Zoom>
+  //           <div className="flex items-center gap-4 mt-5 md:mt-10">
+  //             <p className="italic text-[14px] text-slate-500 ">
+  //               Partager sur :{" "}
+  //             </p>
+  //             <FacebookShareButton url={productUrl}>
+  //               <FacebookIcon size={38} round={true} />
+  //             </FacebookShareButton>
+
+  //             <LinkedinShareButton url={productUrl}>
+  //               <LinkedinIcon size={38} round={true} />
+  //             </LinkedinShareButton>
+
+  //             <TelegramShareButton url={productUrl}>
+  //               <TelegramIcon size={38} round={true} />
+  //             </TelegramShareButton>
+  //             <WhatsappShareButton url={productUrl}>
+  //               <WhatsappIcon size={38} round={true} />
+  //             </WhatsappShareButton>
+  //           </div>
+  //         </div>
+  //         {/* RIGHT SIDE */}
+  //         <div className="space-y-[20px] ">
+  //           {produit?.livraisonGratuite ? (
+  //             <p className="uppercase font-semibold text-[12px] bg-green-600 w-fit text-white p-1 ">
+  //               livraison gratuite
+  //             </p>
+  //           ) : (
+  //             ""
+  //           )}
+  //           <div>
+  //             <p className=" text-[25px] md:text-[30px] capitalize font-medium ">
+  //               {produit?.nom}{" "}
+  //             </p>
+  //             <p className="mb-2 ">
+  //               <span className="">Catégorie</span>
+  //               <span className="uppercase font-medium">: {categorie}</span>{" "}
+  //             </p>
+  //             <div className="flex items-center gap-3 ">
+  //               <Rating
+  //                 readOnly
+  //                 style={{ maxWidth: 160 }}
+  //                 value={rating}
+  //                 itemStyles={customStyles}
+  //                 radius="large"
+  //                 spaceBetween="small"
+  //                 spaceInside="large"
+  //               />
+  //               <p className="text-[14px]">
+  //                 ({produit?.commentaires.length} Avis vérifiés)
+  //               </p>
+  //             </div>
+  //           </div>
+  //           <p className="  ">{produit?.description}</p>
+  //           {produit?.types.length > 0 && (
+  //             <div className="flex items-center gap-2">
+  //               <p className="font-medium uppercase">Type : </p>
+  //               <Select
+  //                 value={type}
+  //                 onChange={setType}
+  //                 options={options}
+  //                 placeholder="Selectionner le type"
+  //                 className=" w-[250px]  select-bordered bg-slate-50 font-sans text-[16px] "
+  //               />
+  //             </div>
+  //           )}
+  //           <div>
+  //             <p className="italic text-[14px] ">
+  //               {produit?.types.length > 0
+  //                 ? "*le prix s'ajustera en fonction du type choisi"
+  //                 : "Prix de l'produit"}
+  //             </p>
+
+  //             <div className="flex items-center gap-1 mt-1">
+  //               <p className="font-semibold text-[20px] "> {prix} Fcfa</p>
+  //               <p className="text-[14px]">l&apos;unité</p>
+  //             </div>
+  //           </div>
+
+  //           <div>
+  //             <p className="font-medium italic text-[14px] mb-2 text-orange4">
+  //               <span>Quantité minimale</span> :{" "}
+  //               <span>{produit?.quantiteMinimale}</span>{" "}
+  //             </p>
+  //             <div
+  //               className=" grid grid-cols-2  items-center gap-5
+  //         "
+  //             >
+  //               <div className="border grid grid-cols-2 h-[60px] items-center rounded-md   ">
+  //                 <div className="h-full flex items-center ">
+  //                   <p className="uppercase font-medium w-full text-center text-[14px] md:text-base ">
+  //                     Quantité
+  //                   </p>
+  //                   <div className="w-[0.5px] h-full  bg-black  " />
+  //                 </div>
+  //                 <div className="h-full flex items-center ">
+  //                   <input
+  //                     type="number"
+  //                     value={produit}
+  //                     onChange={(e) => checkQuantite(e)}
+  //                     className="outline-none border-none bg-transparent ml-4  h-full  w-full "
+  //                   />
+  //                   {/* <div className="w-[0.5px] h-full  bg-black " /> */}
+  //                 </div>
+  //               </div>
+  //               {cart.find((el) => el.id === produit.id) ? (
+  //                 <button
+  //                   className="text-white bg-bleu4 h-full rounded-md w-[140px] md:w-[180px]  transition-all duration-500 shadow-md"
+  //                   onClick={() => addToCartFn(produit)}
+  //                 >
+  //                   {" "}
+  //                   Déjà ajouté
+  //                 </button>
+  //               ) : (
+  //                 <button
+  //                   className="text-white bg-orange3 h-full rounded-md w-[140px] md:w-[180px] hover:bg-bleu4 transition-all text-[14px] md:text-base duration-500 shadow-md "
+  //                   onClick={() => addToCartFn(produit)}
+  //                 >
+  //                   Ajouter au panier
+  //                 </button>
+  //               )}
+  //             </div>
+  //           </div>
+  //           <div className="flex items-center max-w-[83%] gap-7 ">
+  //             <DevisButton />
+  //             <span
+  //               className=" text-orange3 rounded-md flex items-center justify-center
+  //  cursor-pointer hover:bg-orange3 hover:text-white  duration-500 transition-all  "
+  //             >
+  //               {produit?.favoris.length > 0 &&
+  //               produit.favoris.find((res) => res === userInfo?.id) ? (
+  //                 <div className="p-[6px] tooltip" data-tip="Retirer des favoris">
+  //                   <ImHeart
+  //                     className="text-[32px] "
+  //                     onClick={() => addOrRemoveToFav(produit)}
+  //                   />
+  //                 </div>
+  //               ) : (
+  //                 <div
+  //                   className=" p-[6px] tooltip "
+  //                   data-tip="Ajouter aux favoris"
+  //                 >
+  //                   <CgHeart
+  //                     className="text-[32px]"
+  //                     onClick={() => addOrRemoveToFav(produit)}
+  //                   />
+  //                 </div>
+  //               )}
+  //             </span>
+  //           </div>
+  //         </div>
+  //       </div>
+  //       <div>
+  //         <VoirPlus produit={produit} />
+  //       </div>
+  //       <div>
+  //         {/* <Commentaires
+  //           produit={produit}
+  //           allCom={allCom}
+  //           error={error}
+  //           refecthProduitId={refecthProduitId}
+  //         /> */}
+  //       </div>
+  //     </>
+  //   );
 };
 
 export default Produit;

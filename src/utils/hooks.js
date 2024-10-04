@@ -13,7 +13,7 @@ import { auth, db } from "../config/firebase";
 import toast from "react-hot-toast";
 
 export async function recupererProduits(minPrice = 0, maxPrice = 1000000) {
-  console.log(minPrice, maxPrice);
+  // console.log(minPrice, maxPrice);
   const q = query(
     collection(db, "produits"),
     where("prixReference", ">=", minPrice),
@@ -32,7 +32,7 @@ export async function recupererProduits(minPrice = 0, maxPrice = 1000000) {
 }
 
 export async function recupererProduitsAdmin() {
-  console.log("idid");
+  // console.log("idid");
   const q = query(collection(db, "produits"));
 
   const data = await getDocs(q);
@@ -41,7 +41,7 @@ export async function recupererProduitsAdmin() {
     id: doc.id,
     ...doc.data(),
   }));
-  console.log(filteredData);
+  // console.log(filteredData);
   return filteredData;
 }
 
@@ -51,7 +51,7 @@ export async function recupererProduitsParCategorie(
   maxPrice
 ) {
   // Create the query with multiple conditions
-  console.log(categorie, minPrice, maxPrice);
+  // console.log(categorie, minPrice, maxPrice);
   try {
     let q = query(
       collection(db, "produits"),
@@ -69,7 +69,7 @@ export async function recupererProduitsParCategorie(
     // console.log(filteredData);
     return filteredData;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw new Error(error);
   }
 }
@@ -87,7 +87,7 @@ export const recupererProduit = async (nomP) => {
     .filter((doc) => {
       return doc.nom.includes(nomP.toLowerCase());
     });
-  console.log(filteredData);
+  // console.log(filteredData);
   return filteredData;
 };
 
@@ -95,7 +95,7 @@ export async function recuperProduitParId(id) {
   const produitsRef = doc(db, "produits", id);
   try {
     const docSnap = await getDoc(produitsRef);
-    const data = docSnap.data();
+    const data = { id: docSnap.id, ...docSnap.data() };
 
     return data;
   } catch (error) {
@@ -108,7 +108,7 @@ export async function recuperImages() {
   try {
     const docSnap = await getDoc(customRef);
     const data = docSnap.data();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     toast.error(error.code);
@@ -167,7 +167,7 @@ export async function recuperComments(produit) {
   try {
     const docSnap = await getDoc(produitsRef);
     const commentaires = docSnap.data().commentaires || [];
-    console.log(commentaires);
+    // console.log(commentaires);
     return commentaires;
   } catch (error) {
     toast.error(error.code);
@@ -235,17 +235,17 @@ export async function recuperUtilisateurs() {
       where("emailVerified", "==", true),
       orderBy("createdAt", "desc")
     );
-    console.log("ici");
+    // console.log("ici");
     const querySnapshot = await getDocs(q);
     const filteredData = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(filteredData);
+    // console.log(filteredData);
     return filteredData;
   } catch (error) {
     toast.error(error.code);
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -284,7 +284,7 @@ export async function recuperCommandesEnCours(id) {
     // console.log(filteredData);
     return filteredData;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     toast.error(error.message);
   }
 }

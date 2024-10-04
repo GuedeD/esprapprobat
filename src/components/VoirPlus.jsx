@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import { recupererProduitsParCategorie } from "../utils/hooks";
 const VoirPlus = ({ produit }) => {
-  // console.log(produit);
+  // console.log(produit.id);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -54,7 +54,7 @@ const VoirPlus = ({ produit }) => {
   if (error) {
     return (
       <section className="flex justify-center items-center min-h-[300px]">
-        <p>Error loading recent products.</p>
+        <p>Une erreur s'est produite lors de la récupération des données .</p>
       </section>
     );
   }
@@ -71,7 +71,7 @@ const VoirPlus = ({ produit }) => {
       </div>
     );
   }
-  console.log(allAVis);
+  // console.log(allAVis);
   return (
     <div className="">
       <hr />
