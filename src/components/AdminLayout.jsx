@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Logo from "../assets/Images/logo-no-bg.png";
 import { useState } from "react";
 import { IoHome } from "react-icons/io5";
@@ -9,15 +9,19 @@ import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import { PiUsersFourFill } from "react-icons/pi";
 import { RiBillFill } from "react-icons/ri";
 import { MdDashboardCustomize } from "react-icons/md";
-
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { RiCoupon3Fill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
 const AdminLayout = () => {
   const { userInfo } = useSelector((state) => state.projet);
-
+  const navigate = useNavigate();
   const [hideDashboard, setHideDashboard] = useState(false);
+
+  function redirect(r) {
+    navigate(`${r.path}`);
+  }
+
   const adminRoutes = [
     { path: "/admin", icon: <IoHome />, label: "Tableau de bord" },
     {
@@ -89,7 +93,6 @@ const AdminLayout = () => {
               <NavLink
                 key={index}
                 to={adminRoute.path}
-                onClick={(e) => console.log(e)}
                 end
                 className={({ isActive }) =>
                   isActive

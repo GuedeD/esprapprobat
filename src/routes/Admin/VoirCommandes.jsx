@@ -216,13 +216,13 @@ const VoirCommandes = () => {
       ) : (
         <div className="h-full flex flex-col justify-center  items-center mt-5">
           <p className="uppercase text-center mt-2 font-medium text-base lg:text-[20px] font-sans2 ">
-            Aucune Commande pour le moment.
+            Aucune commande pour le moment.
           </p>
 
           <Lottie
             animationData={ZeroPurchase}
             loop={true}
-            className="w-[400px]"
+            className="w-[300px]"
           />
         </div>
       )}

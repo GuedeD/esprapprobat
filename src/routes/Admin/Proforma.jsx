@@ -211,7 +211,7 @@ const Proforma = () => {
           <Lottie
             animationData={ZeroPurchase}
             loop={true}
-            className="w-[400px]"
+            className="w-[300px]"
           />
         </div>
       )}
