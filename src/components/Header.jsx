@@ -33,7 +33,7 @@ const Header = ({ openDrawer }) => {
       setHideConnect(false); // Hide the div
     }
   };
-  console.log(userInfo);
+  // console.log(userInfo);
   function handleSubmit(e) {
     e.preventDefault();
     if (!nom) return;
@@ -42,13 +42,13 @@ const Header = ({ openDrawer }) => {
   async function sendEmailAgain() {
     try {
       const user = auth.currentUser;
-      console.log(user);
+      // console.log(user);
       if (user && !user.emailVerified) {
         await sendEmailVerification(user);
         toast.success("Nouveau lien renvoyé !");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error(error.message);
     }
   }
@@ -77,7 +77,7 @@ const Header = ({ openDrawer }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      console.log(user);
+      // console.log(user);
       if (user && user.emailVerified) {
         const docRef = doc(db, "users", user.uid);
         const dataSnap = await getDoc(docRef);

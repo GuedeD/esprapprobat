@@ -79,10 +79,10 @@ const AjouterProduit = () => {
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        1100, // max width
-        1100, // max height
+        500, // max width
+        500, // max height
         "JPEG", // format (can be PNG, JPEG, WEBP)
-        100, // quality percentage
+        90, // quality percentage
         0, // rotation
         (blob) => {
           resolve(blob);
@@ -98,7 +98,7 @@ const AjouterProduit = () => {
 
     const storageRef = ref(
       storage,
-      `ImagesCustom/${Date.now()}-${imageFile.name}`
+      `/ImagesProduits/${Date.now()}-${imageFile.name}`
     );
 
     const image = await resizeFile(imageFile);
@@ -142,7 +142,7 @@ const AjouterProduit = () => {
 
       const data = {
         nom: nom.toLowerCase(),
-        description: description.toLowerCase(),
+        description: description,
         livraisonGratuite:
           String(livraisonGratuite.label) === "oui" ? true : false,
         enStock: String(enStock.label) === "oui" ? true : false,
@@ -166,7 +166,7 @@ const AjouterProduit = () => {
       };
 
       const jsonString = JSON.stringify(dataToCheck, null, 2);
-      console.log(data);
+      // console.log(data);
       Swal.fire({
         title: "Vérification",
         html: `<pre style="text-align:left;font-size: 14px;">${jsonString}</pre>`,

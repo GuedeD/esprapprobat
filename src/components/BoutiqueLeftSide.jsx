@@ -96,7 +96,6 @@ const BoutiqueLeftSide = ({
                     className="checkbox"
                     id={categorie}
                     name="categorie"
-                    defaultChecked={categorieSelectionner}
                     value={categorie}
                     checked={categorieSelectionner === categorie}
                     onChange={() => {

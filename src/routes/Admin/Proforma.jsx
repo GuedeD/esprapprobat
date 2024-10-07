@@ -22,24 +22,6 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import toast from "react-hot-toast";
 
-// if (isLoading && !allCom) {
-//     return (
-//       <section className="flex max-w-[80%] mx-auto gap-4 justify-center items-center min-h-[700px]">
-//         {[0, 1].map((i) => (
-//           <div key={i} className="flex w-[50%] flex-col gap-4">
-//             <div className="flex items-center gap-5">
-//               <div className="skeleton h-full w-16 shrink-0 rounded-full"></div>
-//               <div className="flex flex-col gap-4">
-//                 <div className="skeleton h-4 w-20"></div>
-//                 <div className="skeleton h-4 w-28"></div>
-//               </div>
-//             </div>
-//             <div className="skeleton h-32 w-full"></div>
-//           </div>
-//         ))}
-//       </section>
-//     );
-//   }
 const styles = StyleSheet.create({
   page: {
     padding: 20,
@@ -138,7 +120,7 @@ const Proforma = () => {
   }
 
   return (
-    <div className="h-full relative">
+    <div className="h-full ">
       <h3 className="text-bleu4 font-semibold text-[20px] md:text-[26px] p-3">
         Voir factures
       </h3>
@@ -207,7 +189,7 @@ const Proforma = () => {
               </tbody>
             ))}
           </table>
-          <div className="absolute w-full bottom-2 left-0">
+          <div className=" w-full ">
             <hr className=" my-3 " />
             <div className="w-full flex justify-center my-1   ">
               <Pagination

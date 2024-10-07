@@ -157,7 +157,7 @@ export const recupererRecentsSO = async () => {
     // console.log(filteredData);
     return filteredData;
   } catch (error) {
-    console.error("Error fetching recent products:", error);
+    // console.error("Error fetching recent products:", error);
     throw new Error("Unable to retrieve recent products");
   }
 };

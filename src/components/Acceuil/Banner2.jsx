@@ -5,7 +5,7 @@ const Banner2 = () => {
     <div className="-my-[30px] md:-my-0 ">
       <img
         src={Sanstitre}
-        className="h-[90px]  md:h-[120px] md:object-cover  lg:h-[200px] md:w-full  "
+        className="h-[90px] sm:h-[120px]  md:h-[120px]  lg:h-[200px] sm:object-cover sm:w-full  "
         alt=""
       />
     </div>

@@ -155,7 +155,7 @@ const Commentaires = ({ produit, error, refecthProduitId }) => {
               toast.success("Merci pour votre avis !");
             }
           } catch (error) {
-            console.error("Error submitting comment: ", error);
+            // console.error("Error submitting comment: ", error);
             toast.error("Erreur lors de la soumission de votre avis.");
           }
         } else {
@@ -172,8 +172,6 @@ const Commentaires = ({ produit, error, refecthProduitId }) => {
     setRatingPut(commentaire.note);
     setTitre(commentaire.titre);
     setDetails(commentaire.details);
-
-    e.preventDefault();
 
     const element = document.getElementById("ajoutAvis");
     if (element) {

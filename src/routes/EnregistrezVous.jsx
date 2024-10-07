@@ -65,7 +65,7 @@ const EnregistrezVous = () => {
 
         await createUserWithEmailAndPassword(auth, email, password)
           .then(async (res) => {
-            console.log(res);
+            // console.log(res);
             const user = res.user;
             // // // console.log(user);
             await updateProfile(user, {

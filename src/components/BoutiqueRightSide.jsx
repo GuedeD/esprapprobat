@@ -1,6 +1,4 @@
-import Lottie from "lottie-react";
 import { useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Pagination from "rc-pagination";

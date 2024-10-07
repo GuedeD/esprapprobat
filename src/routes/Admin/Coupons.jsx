@@ -94,7 +94,7 @@ const Coupons = () => {
     enabled: true,
     staleTime: 5 * 60 * 1000,
   });
-  console.log(coupons);
+  // console.log(coupons);
 
   if (error) {
     return (
@@ -145,7 +145,7 @@ const Coupons = () => {
           </div>
           <div className="flex flex-col gap-[10px] lg:flex-row lg:gap-[30px]  lg:items-center items-start ">
             <div>
-              <fieldset className="w-[100px] md:w-[150px] border-[1.5px] p-2 rounded border-bleu4">
+              <fieldset className="w-[50px] md:w-[120px] border-[1.5px] p-2 rounded border-bleu4">
                 <legend
                   className="px-3 text-[14px] text-bleu4 font-medium "
                   htmlFor=""
@@ -168,7 +168,7 @@ const Coupons = () => {
               </fieldset>
             </div>
             <div>
-              <fieldset className="w-[100px] md:w-[150px] border-[1.5px] p-2 rounded border-bleu4">
+              <fieldset className="w-[50px] md:w-[120px] border-[1.5px] p-2 rounded border-bleu4">
                 <legend
                   htmlFor=""
                   className="px-3 text-[14px] text-bleu4 font-medium "

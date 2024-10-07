@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithEmailAndPassword,
-  signInWithPhoneNumber,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../config/firebase";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { connexion } from "../redux/espremium";

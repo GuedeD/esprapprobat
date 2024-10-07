@@ -12,7 +12,7 @@ import { MdDeleteSweep } from "react-icons/md";
 import Swal from "sweetalert2";
 import { IoSearch } from "react-icons/io5";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { db, storage } from "../../config/firebase";
 import toast from "react-hot-toast";
 
 import Aloading from "../../assets/Images/animation/ALoading.json";
@@ -23,10 +23,11 @@ import { ImEyeBlocked } from "react-icons/im";
 
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { deleteObject, ref } from "firebase/storage";
 const VoirProduits = () => {
   const navigate = useNavigate();
 
-  function handleClick(id) {
+  function handleClick(prod) {
     Swal.fire({
       title: "Voulez-vous supprimer ce produit?",
       text: "Pas de chemin arrière après!",
@@ -38,7 +39,9 @@ const VoirProduits = () => {
       cancelButtonText: "J'annule",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const docRef = doc(db, "produits", id);
+        const docRef = doc(db, "produits", prod.id);
+        const deleteRef = ref(storage, prod.image);
+        deleteObject(deleteRef);
         try {
           await deleteDoc(docRef);
           refreshProductsAdmin();
@@ -143,7 +146,7 @@ const VoirProduits = () => {
       setProductsAdmin(productsAdminAll);
     }
   }, [productsAdminAll, productsAdminSearch, searchTriggered, nom]);
-  console.log(productsAdmin);
+  // console.log(productsAdmin);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
 
@@ -227,11 +230,11 @@ const VoirProduits = () => {
               currentItems.map((produit, i) => (
                 <div
                   key={i}
-                  className="border rounded-md pt-3 flex flex-col items-center shadow"
+                  className="border rounded-md pt-3 flex flex-col items-center shadow bg-white"
                 >
                   <img
                     src={produit.image}
-                    className="object-cover h-[70px] w-[80px]  md:h-[80px] md:w-[100px] lg:w-[120px] lg:h-[100px] rounded-lg"
+                    className="object-cover h-[70px] w-[80px]  md:h-[80px] md:w-[100px] lg:w-[120px] lg:h-[100px] rounded-lg  "
                     alt=""
                   />
                   <div className="mt-3 mb-2">
@@ -266,7 +269,7 @@ const VoirProduits = () => {
                     <button
                       data-tip="Supprimer"
                       className="tooltip items-center border text-red-500 rounded hover:border-red-500 hover:bg-red-500 hover:text-white duration-700 transition-all text-[17px] md:text-[20px] lg:text-[22px] p-1 md:p-2"
-                      onClick={() => handleClick(produit.id)}
+                      onClick={() => handleClick(produit)}
                     >
                       <MdDeleteSweep />
                     </button>

@@ -62,8 +62,10 @@ const Search = () => {
                   {produit.prixReference} Fcfa
                 </p>
                 <div className="flex  gap-[5px] items-center  ">
-                  <p className="text-[14px] text-nowrap">Quantité min : </p>
-                  <p className="   ">{produit.quantiteMinimale}</p>{" "}
+                  <p className="text-[14px] text-nowrap">Quantité min: </p>
+                  <p className=" text-sm md:text-base  ">
+                    {produit.quantiteMinimale}
+                  </p>{" "}
                 </div>
               </div>
             </div>

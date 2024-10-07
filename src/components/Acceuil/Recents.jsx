@@ -181,10 +181,10 @@ const Recents = () => {
                 <div className=" flex flex-col items-center border rounded-t-md p-2 m-2 h-[160px] lg:h-[200px] ">
                   <img
                     src={product.image}
-                    className="w-full h-[90px]   md:h-[100px]  lg:h-[150px] object-cover rounded-md"
+                    className="w-full h-[100px]   md:h-[100px]  lg:h-[150px] object-cover rounded-md"
                     alt={product.nom}
                   />
-                  <p className="text-center mt-2">{product.nom}</p>
+                  <p className="text-center ">{product.nom}</p>
                 </div>
                 <div className="mt-2 p-3 flex items-center justify-between rounded-b-md bg-bleu4 text-white m-2">
                   <div className="flex flex-col items-center">

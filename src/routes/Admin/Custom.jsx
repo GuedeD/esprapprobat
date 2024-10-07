@@ -35,10 +35,26 @@ const Custom = () => {
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        1100, // max width
-        1100, // max height
+        1000, // max width
+        1000, // max height
         "JPEG", // format (can be PNG, JPEG, WEBP)
         100, // quality percentage
+        0, // rotation
+        (blob) => {
+          resolve(blob);
+        },
+        "blob" // output type as blob
+      );
+    });
+
+  const resizeFile2 = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        500, // max width
+        500, // max height
+        "JPEG", // format (can be PNG, JPEG, WEBP)
+        90, // quality percentage
         0, // rotation
         (blob) => {
           resolve(blob);
@@ -139,7 +155,7 @@ const Custom = () => {
       `ImagesCustom/${Date.now()}-${imageFile.name}`
     );
 
-    const image = await resizeFile(imageFile);
+    const image = await resizeFile2(imageFile);
     const uploadTask = uploadBytesResumable(storageRef, image);
 
     uploadTask.on(
@@ -193,7 +209,7 @@ const Custom = () => {
       `ImagesCustom/${Date.now()}-${imageFile.name}`
     );
 
-    const image = await resizeFile(imageFile);
+    const image = await resizeFile2(imageFile);
     const uploadTask = uploadBytesResumable(storageRef, image);
 
     uploadTask.on(
@@ -247,7 +263,7 @@ const Custom = () => {
       `ImagesCustom/${Date.now()}-${imageFile.name}`
     );
 
-    const image = await resizeFile(imageFile);
+    const image = await resizeFile2(imageFile);
     const uploadTask = uploadBytesResumable(storageRef, image);
 
     uploadTask.on(

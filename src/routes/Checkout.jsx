@@ -95,7 +95,7 @@ const Checkout = () => {
         ) {
           toast.success("Coupon appliqué");
 
-          console.log(commande?.total, couponApplied);
+          // console.log(commande?.total, couponApplied);
           let calcul =
             Number(commande?.total) -
             Number((commande?.total * couponData.reduction) / 100);
@@ -313,11 +313,15 @@ const Checkout = () => {
         <div className="p-5">
           {commande?.cart.map((el) => (
             <div
-              className="flex justify-between items-center gap-20  my-2 rounded-md shadow-md p-2 "
+              className="flex justify-between border-[0.5px] items-center gap-20  my-2 rounded-md shadow-md p-2 "
               key={el.id}
             >
-              <div className="flex items-center  gap-5">
-                <img src={el.image} className="w-[60px] rounded-md" alt="" />
+              <div className="flex items-center justify-between   gap-5">
+                <img
+                  src={el.image}
+                  className="w-[60px] h-[60px] object-cover rounded-md"
+                  alt=""
+                />
                 <div>
                   <p>{el.nom}</p>
                   {el.type !== "undefined" ? (
@@ -328,7 +332,7 @@ const Checkout = () => {
                   <p>Quantité: {el.quantite}</p>
                 </div>
               </div>
-              <p className="mx-10">
+              <p className="">
                 {formatNumberWithDots(el.prix * el.quantite)} Fcfa{" "}
               </p>
             </div>
