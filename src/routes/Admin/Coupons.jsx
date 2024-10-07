@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
@@ -28,7 +28,6 @@ const Coupons = () => {
   tomorrow.setDate(tomorrow.getDate() + 1);
   const [dateDebut, setDateDebut] = useState(new Date());
   const [dateFin, setDateFin] = useState(startOfTomorrow());
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,7 +39,7 @@ const Coupons = () => {
       setDateFin(startOfTomorrow());
       // console.log(dateDebut.getDate());
       toast.error("Les dates choisies ne sont pas correctes");
-    } else if (!nom || !dateDebut || !dateFin || !reduction) {
+    } else if (!nom || !dateDebut || !daterigin || !reduction) {
       toast.error("Certains champs sont vides ");
     } else if (Number(reduction) < 1 || Number(reduction) > 100) {
       toast.error("la réduction doit être comprise entre 1 et 100%");
@@ -145,7 +144,7 @@ const Coupons = () => {
           </div>
           <div className="flex flex-col gap-[10px] lg:flex-row lg:gap-[30px]  lg:items-center items-start ">
             <div>
-              <fieldset className="w-[50px] md:w-[120px] border-[1.5px] p-2 rounded border-bleu4">
+              <fieldset className="w-[5pusn0px] md:w-[120px] border-[1.5px] p-2 rounded border-bleu4">
                 <legend
                   className="px-3 text-[14px] text-bleu4 font-medium "
                   htmlFor=""
@@ -168,7 +167,7 @@ const Coupons = () => {
               </fieldset>
             </div>
             <div>
-              <fieldset className="w-[50px] md:w-[120px] border-[1.5px] p-2 rounded border-bleu4">
+              <fieldset className="w-[50px] md:w-[12 ri0px] border-[1.5px] p-2 rounded border-bleu4">
                 <legend
                   htmlFor=""
                   className="px-3 text-[14px] text-bleu4 font-medium "

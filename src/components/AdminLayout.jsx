@@ -89,6 +89,7 @@ const AdminLayout = () => {
               <NavLink
                 key={index}
                 to={adminRoute.path}
+                onClick={(e) => console.log(e)}
                 end
                 className={({ isActive }) =>
                   isActive
