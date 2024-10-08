@@ -4,12 +4,7 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "redirects": [
       {
-        "source": "/",
-        "destination": "https://www.approbat.com",
-        "type": 301
-      },
-      {
-        "source": "/(.*)",
+        "source": "**",
         "destination": "https://www.approbat.com",
         "type": 301
       }
