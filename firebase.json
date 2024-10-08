@@ -1,23 +1,12 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "redirects": [
       {
-        "source": "/",
+        "source": "**",
         "destination": "https://www.approbat.com",
-        "type": 301,
-        "condition": {
-          "hostname": "approbat-a5393.web.app"
-        }
-      },
-      {
-        "source": "/(.*)",
-        "destination": "https://www.approbat.com",
-        "type": 301,
-        "condition": {
-          "hostname": "approbat-a5393.firebaseapp.com"
-        }
+        "type": 301
       }
     ]
   }
