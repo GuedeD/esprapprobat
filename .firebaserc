@@ -1,13 +1,4 @@
 {
-  "hosting": {
-    "redirects": [
-      {
-        "source": "/",
-        "destination": "https://www.approbat.com",
-        "type": 301
-      }
-    ]
-  },
   "projects": {
     "default": "approbat-a5393"
   }
