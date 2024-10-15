@@ -228,10 +228,10 @@ const Commentaires = ({ produit, error, refecthProduitId }) => {
   }
 
   return (
-    <div className="relative" id="ajoutAvis">
+    <div className="relative  md:pt-10" id="ajoutAvis">
       <hr />
       <div className="max-w-[85%] mx-auto">
-        <p className="font-medium  text-[24px] my-2 ">Votre avis</p>
+        <p className="font-medium  text-[24px]  my-2 ">Votre avis</p>
       </div>
       <hr />
       <div className="max-w-[95%] md:max-w-[85%]  mx-auto gap-[70px] flex md:items-start mt-[20px] mb-[70px] flex-col md:flex-row items-center ">

@@ -22,8 +22,8 @@ const Categories = ({ allImages }) => {
               navigate("/boutique", { state: { cat: "granulat" } })
             }
           >
-            <p>Granulat</p>
-            <CiCircleChevRight className="text-[28px]  " />
+            <p className="text-[15px] md:text-base lg:text-lg ">Granulat</p>
+            <CiCircleChevRight className="text-[26px] md:text-[26px]  " />
           </div>
         </div>
 
@@ -37,8 +37,8 @@ const Categories = ({ allImages }) => {
             className="category "
             onClick={() => navigate("/boutique", { state: { cat: "acier" } })}
           >
-            <p>Acier</p>
-            <CiCircleChevRight className="text-[28px]  " />
+            <p className="text-[15px] md:text-lg  ">Acier</p>
+            <CiCircleChevRight className="text-[26px] md:text-[26px]  " />
           </div>
         </div>
 
@@ -54,8 +54,8 @@ const Categories = ({ allImages }) => {
               navigate("/boutique", { state: { cat: "bois coffrage" } })
             }
           >
-            <p>Boiserie</p>
-            <CiCircleChevRight className="text-[28px]  " />
+            <p className="text-[15px] md:text-base lg:text-lg ">Boiserie</p>
+            <CiCircleChevRight className="text-[26px] md:text-[26px]  " />
           </div>
         </div>
 
@@ -71,8 +71,8 @@ const Categories = ({ allImages }) => {
               navigate("/boutique", { state: { cat: "agglos industriel" } })
             }
           >
-            <p>Agglos </p>
-            <CiCircleChevRight className="text-[28px]  " />
+            <p className="text-[15px] md:text-base lg:text-lg ">Agglos </p>
+            <CiCircleChevRight className="text-[26px] md:text-[26px]  " />
           </div>
         </div>
       </div>

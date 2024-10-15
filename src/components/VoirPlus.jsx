@@ -133,7 +133,7 @@ const VoirPlus = ({ produit }) => {
                   <div
                     onClick={() => navigateProduct(product)}
                     key={product.id}
-                    className="border relative shadow-md rounded-md p-2  group will-change-transfor  cursor-pointer "
+                    className="border relative shadow-md rounded-md p-2  group will-change-transfor  cursor-pointer h-[220px] lg:h-[300px]  "
                   >
                     <div className=" flex items-center justify-center   relative overflow-hidden w-[90px] h-[90px]  md:w-[100px] md:h-[100px] lg:w-[150px] lg:h-[150px] object-cover rounded-md mx-auto">
                       <img
@@ -144,20 +144,17 @@ const VoirPlus = ({ produit }) => {
                     </div>
                     <hr className="my-2" />
 
-                    <div>
-                      <p className="  capitalize text-sm md:text-base ">
+                    <div className=" h-[calc(100%-90px)] md:h-[calc(100%-100px)]  lg:h-[calc(100%-150px)]  flex flex-col justify-center  ">
+                      <p className="  capitalize text-sm md:text-base text-orange3 font-medium ">
                         {product.nom}
                       </p>
                       <p className=" uppercase font-semibold ">
                         {product.prixReference} Fcfa
                       </p>
-                      <div className="flex flex-col md:flex-row  gap-[5px] md:items-center  ">
-                        <p className="text-[14px] text-nowrap">
-                          Quantité min:{" "}
-                        </p>
+                      <div className="flex  gap-[5px] items-center  ">
+                        <p className="text-[14px] text-nowrap">Qté min: </p>
                         <p className="   ">{product.quantiteMinimale}</p>{" "}
                       </div>
-                      <p></p>
                     </div>
                   </div>
                 </SwiperSlide>
