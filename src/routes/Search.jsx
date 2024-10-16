@@ -21,7 +21,11 @@ const Search = () => {
   const currentItems = data.slice(startIdx, endIdx);
 
   function navigateProduct(produit) {
-    const slug = produit.nom.toLowerCase().split(" ").join("-");
+    const slug = produit.nom
+      .toLowerCase()
+      .replaceAll("/", "-")
+      .split(" ")
+      .join("-");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
   return (

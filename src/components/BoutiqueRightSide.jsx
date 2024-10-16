@@ -36,7 +36,11 @@ const BoutiqueRightSide = ({ produits, refetchPriceProducts, openDrawer }) => {
   const navigate = useNavigate();
 
   function navigateProduct(produit) {
-    const slug = produit.nom.toLowerCase().split(" ").join("-");
+    const slug = produit.nom
+      .toLowerCase()
+      .replaceAll("/", "-")
+      .split(" ")
+      .join("-");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
 
