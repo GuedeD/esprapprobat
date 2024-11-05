@@ -1,4 +1,12 @@
+import { useEffect } from "react";
+
 const Banner = ({ allImages }) => {
+  useEffect(() => {
+    localStorage.removeItem("catSelectionner");
+    localStorage.removeItem("produits");
+    localStorage.removeItem("minPrice");
+  }, []);
+
   return (
     <div className=" mx-auto  relative z-10 ">
       <div className="relative before:absolute before:bg-black before:inset-0 before:opacity-40">

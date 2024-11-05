@@ -16,6 +16,7 @@ import { FaWindowClose } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 
 const BoutiqueLeftSide = ({
+  setMinPrice,
   priceRange,
   setPriceRange,
   categorieSelectionner,
@@ -32,7 +33,9 @@ const BoutiqueLeftSide = ({
   const handleRangeChange = (range) => {
     if (range) {
       setPriceRange(range);
+      setMinPrice(range[0]);
     }
+    localStorage.setItem("minPrice", JSON.stringify(range[0]));
   };
   const { pathname } = useLocation();
 
@@ -51,6 +54,9 @@ const BoutiqueLeftSide = ({
     setResetBtn(!resetBtn);
     setCategorieSelectionner("");
     setPriceRange([100, 1000000]);
+    localStorage.removeItem("catSelectionner");
+    localStorage.removeItem("produits");
+    localStorage.removeItem("minPrice");
   }
 
   useEffect(() => {

@@ -18,9 +18,13 @@ const Categories = ({ allImages }) => {
           />
           <div
             className="category "
-            onClick={() =>
-              navigate("/boutique", { state: { cat: "granulat" } })
-            }
+            onClick={() => {
+              navigate("/boutique");
+              localStorage.setItem(
+                "catSelectionner",
+                JSON.stringify("granulat")
+              );
+            }}
           >
             <p className="text-[15px] md:text-base lg:text-lg ">Granulat</p>
             <CiCircleChevRight className="text-[26px] md:text-[26px]  " />
@@ -35,7 +39,10 @@ const Categories = ({ allImages }) => {
           />
           <div
             className="category "
-            onClick={() => navigate("/boutique", { state: { cat: "acier" } })}
+            onClick={() => {
+              navigate("/boutique");
+              localStorage.setItem("catSelectionner", JSON.stringify("acier"));
+            }}
           >
             <p className="text-[15px] md:text-lg  ">Acier</p>
             <CiCircleChevRight className="text-[26px] md:text-[26px]  " />
@@ -50,9 +57,13 @@ const Categories = ({ allImages }) => {
           />
           <div
             className="category "
-            onClick={() =>
-              navigate("/boutique", { state: { cat: "bois coffrage" } })
-            }
+            onClick={() => {
+              navigate("/boutique");
+              localStorage.setItem(
+                "catSelectionner",
+                JSON.stringify("bois coffrage")
+              );
+            }}
           >
             <p className="text-[15px] md:text-base lg:text-lg ">Boiserie</p>
             <CiCircleChevRight className="text-[26px] md:text-[26px]  " />
@@ -67,9 +78,13 @@ const Categories = ({ allImages }) => {
           />
           <div
             className="category "
-            onClick={() =>
-              navigate("/boutique", { state: { cat: "agglos industriel" } })
-            }
+            onClick={() => {
+              navigate("/boutique");
+              localStorage.setItem(
+                "catSelectionner",
+                JSON.stringify("agglos industriel")
+              );
+            }}
           >
             <p className="text-[15px] md:text-base lg:text-lg ">Agglos </p>
             <CiCircleChevRight className="text-[26px] md:text-[26px]  " />

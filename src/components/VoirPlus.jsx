@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { recupererProduitsParCategorie } from "../utils/hooks";
+import { recupererProduitsParCategorie2 } from "../utils/hooks";
 import { formatNumberWithDots } from "../utils/constants";
 const VoirPlus = ({ produit }) => {
   // console.log(produit.id);
@@ -24,9 +24,10 @@ const VoirPlus = ({ produit }) => {
   } = useQuery({
     queryKey: ["allAvis"],
     queryFn: () =>
-      recupererProduitsParCategorie(produit.sousCategorie, 0, 1000000),
+      recupererProduitsParCategorie2(produit.sousCategorie, 100, 1000000),
 
     enabled: true,
+    staleTime: 60 * 60 * 500,
   });
 
   if (isLoading) {

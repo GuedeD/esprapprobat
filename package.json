@@ -20,7 +20,7 @@
     "axios": "^1.7.4",
     "chart.js": "^4.4.4",
     "date-fns": "^3.6.0",
-    "firebase": "^10.13.0",
+    "firebase": "^11.0.1",
     "lottie-react": "^2.4.0",
     "rc-drawer": "^7.2.0",
     "rc-pagination": "^4.2.0",
