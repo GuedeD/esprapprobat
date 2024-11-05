@@ -14,13 +14,11 @@ import { db } from "../../config/firebase";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { IoIosArrowBack } from "react-icons/io";
+import { formatNumberWithDots } from "../../utils/constants";
 
 const ListeEnvies = () => {
   const { userInfo } = useSelector((state) => state.projet);
   const navigate = useNavigate();
-  function formatNumberWithDots(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
 
   async function RemoveToFav(produit) {
     if (!userInfo) {

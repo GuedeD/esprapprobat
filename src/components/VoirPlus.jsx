@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { recupererProduitsParCategorie } from "../utils/hooks";
+import { formatNumberWithDots } from "../utils/constants";
 const VoirPlus = ({ produit }) => {
   // console.log(produit.id);
   const prevRef = useRef(null);
@@ -153,7 +154,7 @@ const VoirPlus = ({ produit }) => {
                         {product.nom}
                       </p>
                       <p className=" uppercase font-semibold ">
-                        {product.prixReference} Fcfa
+                        {formatNumberWithDots(product.prixReference)} Fcfa
                       </p>
                       <div className="flex  gap-[5px] items-center  ">
                         <p className="text-[14px] text-nowrap">Qté min: </p>

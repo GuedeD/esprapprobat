@@ -11,6 +11,7 @@ import Lottie from "lottie-react";
 import Empty from "../assets/Images/animation/NOFOUND1.json";
 import { IoIosArrowBack, IoIosWarning } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { formatNumberWithDots } from "../utils/constants";
 
 const Cart = () => {
   const { cart, userInfo } = useSelector((state) => state.projet);
@@ -20,9 +21,6 @@ const Cart = () => {
 
   // console.log(cart);
 
-  function formatNumberWithDots(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
   const [total, setTotal] = useState(0);
   // console.log(cart);
   useEffect(() => {

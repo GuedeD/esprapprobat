@@ -120,7 +120,6 @@ const VoirProduits = () => {
     enabled: true, // Always fetch the full list
     staleTime: 5 * 60 * 1000,
   });
-
   const {
     data: productsAdminSearch,
     error: errorSearch,

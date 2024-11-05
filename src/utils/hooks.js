@@ -14,35 +14,44 @@ import toast from "react-hot-toast";
 
 export async function recupererProduits(minPrice = 0, maxPrice = 1000000) {
   // console.log(minPrice, maxPrice);
-  const q = query(
-    collection(db, "produits"),
-    where("prixReference", ">=", minPrice),
-    where("prixReference", "<=", maxPrice),
-    where("enStock", "==", true)
-  );
-  const data = await getDocs(q);
-  // console.log(data);
-  // console.log("kksksksks", data);
-  const filteredData = data.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-  // console.log(filteredData);
-  return filteredData;
+  try {
+    const q = query(
+      collection(db, "produits"),
+      where("prixReference", ">=", minPrice),
+      where("prixReference", "<=", maxPrice),
+      where("enStock", "==", true),
+      orderBy("createdAt", "desc")
+    );
+    const data = await getDocs(q);
+    // console.log(data);
+    // console.log("kksksksks", data);
+    const filteredData = data.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    // console.log(filteredData);
+    return filteredData;
+  } catch (error) {
+    toast.error(error);
+    console.log(error);
+  }
 }
 
 export async function recupererProduitsAdmin() {
   // console.log("idid");
-  const q = query(collection(db, "produits"));
+  try {
+    const q = query(collection(db, "produits"), orderBy("createdAt", "desc"));
 
-  const data = await getDocs(q);
+    const data = await getDocs(q);
 
-  const filteredData = data.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-  // console.log(filteredData);
-  return filteredData;
+    const filteredData = data.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return filteredData;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function recupererProduitsParCategorie(

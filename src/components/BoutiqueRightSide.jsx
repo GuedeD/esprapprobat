@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { RiMenuFold3Fill } from "react-icons/ri";
+import { formatNumberWithDots } from "../utils/constants";
 
 // eslint-disable-next-line react/prop-types
 const BoutiqueRightSide = ({ produits, refetchPriceProducts, openDrawer }) => {
@@ -137,7 +138,7 @@ const BoutiqueRightSide = ({ produits, refetchPriceProducts, openDrawer }) => {
               <div>
                 <p className="  capitalize ">{produit.nom}</p>
                 <p className=" uppercase font-semibold ">
-                  {produit.prixReference} Fcfa
+                  {formatNumberWithDots(produit.prixReference)} Fcfa
                 </p>
                 <div className="flex flex-col md:flex-row  gap-[5px] md:items-center  ">
                   <p className="text-[12px]  md:text-[14px] text-nowrap">

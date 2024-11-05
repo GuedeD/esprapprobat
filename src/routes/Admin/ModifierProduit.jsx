@@ -26,13 +26,13 @@ import {
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Swal from "sweetalert2";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaArrowCircleLeft } from "react-icons/fa";
 
 const ModifierProduit = () => {
   const location = useLocation();
   const produit = location.state.produit;
-
+  const navigate = useNavigate();
   ///////////////// STATE DEBUT /////////////////
   const [nom, setNom] = useState(produit.nom);
   const [description, setDescription] = useState(produit.description);
@@ -237,6 +237,9 @@ const ModifierProduit = () => {
       await updateDoc(refProduit, data);
       toast.success("Produit modifié avec succès 😊");
       clearData();
+      setTimeout(() => {
+        navigate("/admin/produits");
+      }, 2000);
     } catch (error) {
       toast.error(error);
     }

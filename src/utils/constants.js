@@ -5,7 +5,7 @@ export const sousCategories1 = [
   "Granulat",
   "Acier",
   "Bois coffrage",
-  "Tube orange (électricité)",
+  "Électricité",
   "Plomberie (évacuation et alimentation)",
   "Agglos industriel",
   "Etancheité",
@@ -45,3 +45,7 @@ export const communesAbidjan = [
   { commune: "Songon" },
   { commune: "Yopougon" },
 ];
+
+export function formatNumberWithDots(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}

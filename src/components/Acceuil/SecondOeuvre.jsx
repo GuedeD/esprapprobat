@@ -25,6 +25,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { formatNumberWithDots } from "../../utils/constants";
 
 const SecondOeuvre = () => {
   const prevRef = useRef(null);
@@ -172,7 +173,7 @@ const SecondOeuvre = () => {
           >
             {allProductsRecents.map((product, index) => (
               <SwiperSlide className=" relative slide-item" key={index}>
-                <div className=" flex flex-col items-center border rounded-t-md p-2 m-2 h-[160px] lg:h-[220px] ">
+                <div className=" flex flex-col items-center border rounded-t-md p-2 m-2 h-[175px] lg:h-[220px] ">
                   <img
                     src={product.image}
                     className="w-full h-[90px]  md:h-[100px]  lg:h-[150px] object-cover rounded-md"
@@ -186,7 +187,9 @@ const SecondOeuvre = () => {
                 </div>
                 <div className="mt-2 p-3 flex items-center justify-between rounded-b-md bg-bleu4 text-white m-2">
                   <div className="flex flex-col items-center">
-                    <p className="font-semibold">{product.prixReference}f</p>
+                    <p className="font-semibold">
+                      {formatNumberWithDots(product.prixReference)}f
+                    </p>
                   </div>
                   <div className="flex text-[26px] gap-2">
                     <span data-tip="Voir" className="tooltip ">

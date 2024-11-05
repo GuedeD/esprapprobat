@@ -38,6 +38,7 @@ import { db } from "../config/firebase";
 import { Rating } from "@smastrom/react-rating";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { recuperProduitParId } from "../utils/hooks";
+import { formatNumberWithDots } from "../utils/constants";
 
 const Star = (
   <path d="M62 25.154H39.082L32 3l-7.082 22.154H2l18.541 13.693L13.459 61L32 47.309L50.541 61l-7.082-22.152L62 25.154z" />
@@ -353,7 +354,10 @@ const Produit = () => {
                   </p>
 
                   <div className="flex items-center gap-1 mt-1">
-                    <p className="font-semibold text-[20px] "> {prix} Fcfa</p>
+                    <p className="font-semibold text-[20px] ">
+                      {" "}
+                      {formatNumberWithDots(prix)} Fcfa
+                    </p>
                     <p className="text-[14px]">l&apos;unité</p>
                   </div>
                 </div>

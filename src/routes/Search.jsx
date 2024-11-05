@@ -5,6 +5,7 @@ import Pagination from "rc-pagination";
 import "rc-pagination/assets/index.css";
 import Lottie from "lottie-react";
 import Nothing from "../assets/Images/animation/NOFOUND1.json";
+import { formatNumberWithDots } from "../utils/constants";
 
 const Search = () => {
   const data = useLoaderData();
@@ -63,7 +64,7 @@ const Search = () => {
               <div>
                 <p className="  capitalize ">{produit.nom}</p>
                 <p className=" uppercase font-semibold ">
-                  {produit.prixReference} Fcfa
+                  {formatNumberWithDots(produit.prixReference)} Fcfa
                 </p>
                 <div className="flex  gap-[5px] items-center  ">
                   <p className="text-[14px] text-nowrap">Quantité min: </p>
