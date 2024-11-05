@@ -55,6 +55,8 @@ const BoutiqueLeftSide = ({
     setCategorieSelectionner("");
     setPriceRange([100, 1000000]);
     localStorage.removeItem("catSelectionner");
+    localStorage.removeItem("catSelectionner2");
+
     localStorage.removeItem("produits");
     localStorage.removeItem("minPrice");
   }

@@ -13,7 +13,7 @@ import { auth, db } from "../config/firebase";
 import toast from "react-hot-toast";
 
 export async function recupererProduits(minPrice = 100, maxPrice = 1000000) {
-  console.log(minPrice, maxPrice);
+  // console.log(minPrice, maxPrice);
   try {
     const q = query(
       collection(db, "produits"),
@@ -34,7 +34,7 @@ export async function recupererProduits(minPrice = 100, maxPrice = 1000000) {
     return filteredData;
   } catch (error) {
     toast.error(error);
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -51,7 +51,7 @@ export async function recupererProduitsAdmin() {
     }));
     return filteredData;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -61,7 +61,8 @@ export async function recupererProduitsParCategorie(
   maxPrice
 ) {
   // Create the query with multiple conditions
-  console.log(categorie, minPrice, maxPrice);
+  // console.log(categorie, minPrice, maxPrice);
+  // console.log("sdfg");
   try {
     let q = query(
       collection(db, "produits"),
@@ -76,7 +77,7 @@ export async function recupererProduitsParCategorie(
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(filteredData);
+    // console.log(filteredData);
     localStorage.setItem("produits", JSON.stringify(filteredData));
     return filteredData;
   } catch (error) {
@@ -106,7 +107,7 @@ export async function recupererProduitsParCategorie2(
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(filteredData);
+    // console.log(filteredData);
     return filteredData;
   } catch (error) {
     // console.log(error);

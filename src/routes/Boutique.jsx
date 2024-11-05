@@ -14,7 +14,9 @@ import { RiMenuFold3Fill } from "react-icons/ri";
 
 const Boutique = () => {
   const [categorieSelectionner, setCategorieSelectionner] = useState(
-    JSON.parse(localStorage.getItem("catSelectionner")) || ""
+    JSON.parse(localStorage.getItem("catSelectionner")) ||
+      JSON.parse(localStorage.getItem("catSelectionner2")) ||
+      ""
   );
 
   const [minPrice, setMinPrice] = useState(
@@ -114,16 +116,21 @@ const Boutique = () => {
       produits ? produits : [],
       array1 ? array1 : []
     );
-    console.log(check);
-
+    console.log(
+      categorieSelectionner !==
+        JSON.parse(localStorage.getItem("catSelectionner"))
+    );
+    console.log(JSON.parse(localStorage.getItem("catSelectionner")));
     if (!categorieSelectionner && !check) {
       refetchPriceProducts();
+
       // setProduits(allProducts);
     } else if (
       categorieSelectionner &&
       categorieSelectionner !==
         JSON.parse(localStorage.getItem("catSelectionner"))
     ) {
+      console.log("second");
       refetchCategory();
       // console.log(categoryProducts);
       // setProduits(categoryProducts);

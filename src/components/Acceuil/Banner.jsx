@@ -3,6 +3,8 @@ import { useEffect } from "react";
 const Banner = ({ allImages }) => {
   useEffect(() => {
     localStorage.removeItem("catSelectionner");
+    localStorage.removeItem("catSelectionner2");
+
     localStorage.removeItem("produits");
     localStorage.removeItem("minPrice");
   }, []);

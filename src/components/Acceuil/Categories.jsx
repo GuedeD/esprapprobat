@@ -21,7 +21,7 @@ const Categories = ({ allImages }) => {
             onClick={() => {
               navigate("/boutique");
               localStorage.setItem(
-                "catSelectionner",
+                "catSelectionner2",
                 JSON.stringify("granulat")
               );
             }}
@@ -41,7 +41,7 @@ const Categories = ({ allImages }) => {
             className="category "
             onClick={() => {
               navigate("/boutique");
-              localStorage.setItem("catSelectionner", JSON.stringify("acier"));
+              localStorage.setItem("catSelectionner2", JSON.stringify("acier"));
             }}
           >
             <p className="text-[15px] md:text-lg  ">Acier</p>
@@ -60,7 +60,7 @@ const Categories = ({ allImages }) => {
             onClick={() => {
               navigate("/boutique");
               localStorage.setItem(
-                "catSelectionner",
+                "catSelectionner2",
                 JSON.stringify("bois coffrage")
               );
             }}
@@ -81,7 +81,7 @@ const Categories = ({ allImages }) => {
             onClick={() => {
               navigate("/boutique");
               localStorage.setItem(
-                "catSelectionner",
+                "catSelectionner2",
                 JSON.stringify("agglos industriel")
               );
             }}
