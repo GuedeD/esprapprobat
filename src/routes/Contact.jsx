@@ -117,11 +117,11 @@ const Contact = () => {
             besoin d&apos;aide?
           </p>
           <h4 className="font-sans2 font-black text-[25px] md:text-[30px] -tracking-[0.5px] mt-[2px] mb-4 lg:mb-8 ">
-            Restez en contact à nous
+            Restez en contact avec nous
           </h4>
           <p className=" max-w-[450px] mb-5 leading-[1.7]  ">
             Vous avez une suggestion à nous faire ? votre expérience
-            d&apos;achat à vous raconter ou quel que soit le sujet,
+            d&apos;achat à nous raconter ou quel que soit le sujet,
             n&apos;hésitez pas à nous contacter.
           </p>
 
@@ -144,7 +144,7 @@ const Contact = () => {
               </p>
               <div>
                 <p className="font-medium text-[17px] -tracking-[0.5px]  ">
-                  On vous donne un email{" "}
+                  Envoyez nous un email{" "}
                 </p>
                 <p>approbatesp@gmail.com</p>
               </div>

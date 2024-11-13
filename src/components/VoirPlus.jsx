@@ -157,7 +157,7 @@ const VoirPlus = ({ produit }) => {
                       <p className=" uppercase font-semibold ">
                         {formatNumberWithDots(product.prixReference)} Fcfa
                       </p>
-                      <div className="flex  gap-[5px] items-center  ">
+                      <div className="flex  gap-[5px] items-center mb-4  ">
                         <p className="text-[14px] text-nowrap">Qté min: </p>
                         <p className="   ">{product.quantiteMinimale}</p>{" "}
                       </div>
