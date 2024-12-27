@@ -26,7 +26,7 @@ const Search = () => {
       .toLowerCase()
       .replaceAll("/", "-")
       .split(" ")
-      .join("-");
+      .join("_");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
   return (

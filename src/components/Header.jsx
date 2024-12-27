@@ -37,7 +37,8 @@ const Header = ({ openDrawer }) => {
   function handleSubmit(e) {
     e.preventDefault();
     if (!nom) return;
-    navigate(`/search?q=${nom}`);
+
+    navigate(`/search?q=${nom.trim().trim()}`);
   }
   async function sendEmailAgain() {
     try {

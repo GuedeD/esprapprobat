@@ -54,7 +54,7 @@ const VoirPlus = ({ produit }) => {
       .toLowerCase()
       .replaceAll("/", "-")
       .split(" ")
-      .join("-");
+      .join("_");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
   if (error) {

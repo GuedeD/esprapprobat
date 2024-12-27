@@ -51,7 +51,7 @@ const SecondOeuvre = () => {
       .toLowerCase()
       .replaceAll("/", "-")
       .split(" ")
-      .join("-");
+      .join("_");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
 

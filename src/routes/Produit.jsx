@@ -37,8 +37,9 @@ import {
 import { db } from "../config/firebase";
 import { Rating } from "@smastrom/react-rating";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { recuperProduitParId } from "../utils/hooks";
+import { recuperProduitParId, recuperProduitParSlug } from "../utils/hooks";
 import { formatNumberWithDots } from "../utils/constants";
+import { de } from "date-fns/locale";
 
 const Star = (
   <path d="M62 25.154H39.082L32 3l-7.082 22.154H2l18.541 13.693L13.459 61L32 47.309L50.541 61l-7.082-22.152L62 25.154z" />
@@ -67,8 +68,12 @@ const Produit = () => {
   //     location.state?.produit || JSON.parse(localStorage.getItem("produit"))
   //   );
   // });
+  const slug = location.pathname.split("/").pop(); // Get the last segment after '/'
 
-  const produitID = location.state?.produit.id;
+  // Decode the slug
+  const decodedSlug = decodeURIComponent(slug).split("_").join(" "); // Converts '%C3%A0' into 'à'
+  // console.log(decodedSlug);
+  // const produitID = location.state?.produit.id;
   // console.log(produitID);
 
   const [rating, setRating] = useState(0);
@@ -80,18 +85,19 @@ const Produit = () => {
     isLoading,
     refetch: refecthProduitId,
   } = useQuery({
-    queryKey: ["produit", produitID],
-    queryFn: () => recuperProduitParId(produitID),
-    enabled: true,
+    queryKey: ["produit", decodedSlug],
+    // queryFn: () => recuperProduitParId(produitID),
+    queryFn: () => recuperProduitParSlug(decodedSlug),
+    enabled: !!decodedSlug,
     staleTime: 0, // Data is always considered stale
     cacheTime: 0, // Data cache will be garbage collected as soon as it's inactive
   });
   // console.log(produit);
   useEffect(() => {
     return () => {
-      queryClient.removeQueries(["produit", produitID]); // Remove query from cache on unmount
+      queryClient.removeQueries(["produit", decodedSlug]); // Remove query from cache on unmount
     };
-  }, [location.pathname, queryClient, produitID]);
+  }, [location.pathname, queryClient, decodedSlug]);
 
   const [quantite, setQuantite] = useState("");
   const [prix, setPrix] = useState("");
@@ -111,7 +117,7 @@ const Produit = () => {
 
       setOptions(option);
     }
-  }, [produit, produitID]);
+  }, [produit, decodedSlug]);
 
   function addToCartFn(item) {
     if (produit?.types.length > 0 && !type) {

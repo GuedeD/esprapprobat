@@ -144,6 +144,23 @@ export async function recuperProduitParId(id) {
   }
 }
 
+export async function recuperProduitParSlug(slug) {
+  let q = query(collection(db, "produits"), where("nom", "==", slug));
+
+  try {
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot);
+    const filteredData = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return filteredData[0];
+  } catch (error) {
+    toast.error(error.code);
+  }
+}
+
 export async function recuperImages() {
   const customRef = doc(db, "customs", "KcbqY75Un2lg3Yms5ei8");
   try {
@@ -223,12 +240,17 @@ export async function recupererProduitClient({ request }) {
     const querySnapshot = await getDocs(q);
 
     const filteredData = querySnapshot.docs
-      .map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
+      .map((doc) => ({ id: doc.id, ...doc.data() }))
       .filter((doc) => {
-        return doc.nom.includes(searchTerm.toLowerCase());
+        // Normalize and remove accents from both doc.nom and searchTerm
+        const normalizeString = (str) =>
+          str
+            .normalize("NFD") // Decomposes accented characters
+            .replace(/[\u0300-\u036f]/g, "") // Removes diacritic marks
+            .toLowerCase(); // Converts to lowercase for case-insensitive search
+
+        // Compare normalized strings
+        return normalizeString(doc.nom).includes(normalizeString(searchTerm));
       });
 
     return filteredData;

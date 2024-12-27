@@ -50,7 +50,7 @@ const Recents = () => {
       .toLowerCase()
       .replaceAll("/", "-")
       .split(" ")
-      .join("-");
+      .join("_");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
   // console.log(userInfo);
