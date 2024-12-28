@@ -126,7 +126,7 @@ const VoirProduits = () => {
     refetch: refetchProductsAdminSearch,
   } = useQuery({
     queryKey: ["productsAdminSearch", nom],
-    queryFn: () => recupererProduit(nom),
+    queryFn: () => recupererProduit(nom.trim()),
     enabled: false, // Disabled by default, will be triggered manually
     staleTime: 5 * 60 * 1000,
   });
@@ -146,13 +146,15 @@ const VoirProduits = () => {
     }
   }, [productsAdminAll, productsAdminSearch, searchTriggered, nom]);
   // console.log(productsAdmin);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageAdmin, setCurrentPageAdmin] = useState(
+    localStorage.getItem("currentPageAdmin") || 1
+  );
   const [pageSize, setPageSize] = useState(20);
 
   const onPageChange = (page) => {
-    setCurrentPage(page);
+    setCurrentPageAdmin(page);
   };
-  const startIdx = (currentPage - 1) * pageSize;
+  const startIdx = (currentPageAdmin - 1) * pageSize;
   const endIdx = startIdx + pageSize;
   const currentItems = productsAdmin?.slice(startIdx, endIdx);
 
@@ -163,6 +165,9 @@ const VoirProduits = () => {
       </section>
     );
   }
+  useEffect(() => {
+    localStorage.setItem("currentPageAdmin", currentPageAdmin);
+  }, [currentPageAdmin]);
 
   return (
     <div className=" relative h-full ">
@@ -275,10 +280,11 @@ const VoirProduits = () => {
                   </div>
                   <div className="absolute w-full bottom-2 left-0">
                     <hr className=" my-3 " />
-                    <div className="w-full flex justify-center my-1   ">
+                    <div className="W-full flex justify-center my-1   ">
                       <Pagination
+                        showLessItems
                         style={{ fontWeight: "normal" }}
-                        current={currentPage} // The current page
+                        current={currentPageAdmin} // The current page
                         total={productsAdmin?.length} // Total number of products
                         pageSize={pageSize} // Number of items per page
                         onChange={onPageChange} // Handle page change

@@ -121,14 +121,19 @@ export const recupererProduit = async (nomP) => {
   const querySnapshot = await getDocs(q);
 
   const filteredData = querySnapshot.docs
-    .map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
+    .map((doc) => ({ id: doc.id, ...doc.data() }))
     .filter((doc) => {
-      return doc.nom.includes(nomP.toLowerCase());
+      // Normalize and remove accents from both doc.nom and searchTerm
+      const normalizeString = (str) =>
+        str
+          .normalize("NFD") // Decomposes accented characters
+          .replace(/[\u0300-\u036f]/g, "") // Removes diacritic marks
+          .toLowerCase(); // Converts to lowercase for case-insensitive search
+
+      // Compare normalized strings
+      return normalizeString(doc.nom).includes(normalizeString(nomP));
     });
-  // console.log(filteredData);
+
   return filteredData;
 };
 
@@ -149,7 +154,7 @@ export async function recuperProduitParSlug(slug) {
 
   try {
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot);
+    // console.log(querySnapshot);
     const filteredData = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),

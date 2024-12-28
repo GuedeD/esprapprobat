@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Pagination from "rc-pagination";
@@ -22,13 +22,19 @@ import { formatNumberWithDots } from "../utils/constants";
 const BoutiqueRightSide = ({ produits, refetchPriceProducts, openDrawer }) => {
   //   const { products } = useSelector((state) => state.projet);
   const { userInfo } = useSelector((state) => state.projet);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem("currentPage") || 1
+  );
   const [pageSize, setPageSize] = useState(20); // You can adjust the number of items per page
 
   // Function to handle the page change
   const onPageChange = (page) => {
     setCurrentPage(page);
   };
+
+  useEffect(() => {
+    localStorage.setItem("currentPage", currentPage);
+  }, [currentPage]);
 
   // Calculate the starting and ending indices for slicing the data
   const startIdx = (currentPage - 1) * pageSize;
@@ -37,11 +43,7 @@ const BoutiqueRightSide = ({ produits, refetchPriceProducts, openDrawer }) => {
   const navigate = useNavigate();
 
   function navigateProduct(produit) {
-    const slug = produit.nom
-      .toLowerCase()
-      .replaceAll("/", "-")
-      .split(" ")
-      .join("_");
+    const slug = produit.nom.toLowerCase().split(" ").join("_");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
 
@@ -136,7 +138,11 @@ const BoutiqueRightSide = ({ produits, refetchPriceProducts, openDrawer }) => {
               <hr className="my-2" />
 
               <div>
-                <p className="  capitalize ">{produit.nom}</p>
+                <p className="  capitalize ">
+                  {produit.nom.length > 30
+                    ? `${produit.nom.slice(0, 29)}...`
+                    : produit.nom}
+                </p>
                 <p className=" uppercase font-semibold ">
                   {formatNumberWithDots(produit.prixReference)} Fcfa
                 </p>

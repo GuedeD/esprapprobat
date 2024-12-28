@@ -47,11 +47,7 @@ const SecondOeuvre = () => {
   });
 
   function navigateProduct(produit) {
-    const slug = produit.nom
-      .toLowerCase()
-      .replaceAll("/", "-")
-      .split(" ")
-      .join("_");
+    const slug = produit.nom.toLowerCase().split(" ").join("_");
     navigate(`/produit/${slug}`, { state: { produit: produit } });
   }
 

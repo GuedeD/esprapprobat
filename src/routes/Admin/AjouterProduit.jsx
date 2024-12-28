@@ -15,7 +15,14 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import toast from "react-hot-toast";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import Swal from "sweetalert2";
@@ -188,14 +195,19 @@ const AjouterProduit = () => {
 
   async function saveItem(data) {
     toast.loading("Ajout du produit en cours");
-    const refCollectionProduits = collection(db, "produits");
-
-    try {
-      await addDoc(refCollectionProduits, data);
-      toast.success("Produit ajouté avec succès 😊");
-      clearData();
-    } catch (error) {
-      toast.error(error);
+    const prodCollection = collection(db, "produits");
+    const q = query(prodCollection, where("nom", "==", data.nom));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      try {
+        await addDoc(prodCollection, data);
+        toast.success("Produit ajouté avec succès 😊");
+        // clearData();
+      } catch (error) {
+        toast.error(error);
+      }
+    } else {
+      toast.error("Le nom du produit existe déjà, il doit être unique !");
     }
   }
 

@@ -63,16 +63,12 @@ const Produit = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  // const [produit, setProduit] = useState(() => {
-  //   return (
-  //     location.state?.produit || JSON.parse(localStorage.getItem("produit"))
-  //   );
-  // });
-  const slug = location.pathname.split("/").pop(); // Get the last segment after '/'
 
   // Decode the slug
-  const decodedSlug = decodeURIComponent(slug).split("_").join(" "); // Converts '%C3%A0' into 'à'
-  // console.log(decodedSlug);
+  const extractedPath = location?.pathname?.replace("/produit/", "");
+  // console.log(extractedPath);
+  const decodedSlug = decodeURIComponent(extractedPath).split("_").join(" "); // Converts '%C3%A0' into 'à'
+  // console.log("decodedSlug", decodedSlug);
   // const produitID = location.state?.produit.id;
   // console.log(produitID);
 
@@ -211,12 +207,13 @@ const Produit = () => {
   //     localStorage.setItem("produit", JSON.stringify(location.state.produit));
   //   }
   // }, [location.state?.produit]);
-
+  // chaise super résistante-couleur marron/chocolat
+  // chaise super résistante-couleur marron-chocolat
   const productUrl = window?.location.href;
 
   if (error) {
     return (
-      <section className="flex justify-center items-center h-full">
+      <section className="flex justify-center items-center h-full pt-10">
         <p>Une erreur s'est produite lors de la récupération des données </p>
       </section>
     );

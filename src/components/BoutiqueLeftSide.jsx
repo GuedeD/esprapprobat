@@ -63,6 +63,7 @@ const BoutiqueLeftSide = ({
 
   useEffect(() => {
     closeDrawer();
+    localStorage.setItem("currentPage", 1);
   }, [categorieSelectionner]);
   return (
     <>
